@@ -1,0 +1,20 @@
+{
+  "name": "videolibrary",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "client": "yarn workspace @videolibrary/client start",
+    "server": "yarn workspace @videolibrary/api start",
+    "build-client": "yarn workspace @videolibrary/client build",
+    "build-server": "yarn workspace @videolibrary/api build",
+    "start": "concurrently --kill-others-on-fail \"yarn client\"  \"yarn server\"",
+    "build": "concurrently --kill-others-on-fail \"yarn build-client\"  \"yarn build-server\""
+  },
+  "dependencies": {
+    "concurrently": "^6.0.2"
+  }
+}
