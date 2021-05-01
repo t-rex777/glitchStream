@@ -14,7 +14,7 @@ router.param("videoId", getVideoById);
 router.route("/video").get(getVideos).post(createVideo);
 
 router
-  .router("/video/:videoId")
+  .route("/video/:videoId")
   .get(getOneVideo)
   .post(updateVideo)
   .delete(deleteVideo);

@@ -12,20 +12,26 @@ const videoSchema = mongoose.Schema(
       required: true,
       maxlength: 200,
     },
-    category: {
-      type: ObjectId,
-      ref: "Category",
-      required: true,
-    },
-    link: {
+    // category: {
+    //   type: ObjectId,
+    //   ref: "Category",
+    //   required: true,
+    // },
+    uploadedBy: {
       type: String,
       required: true,
     },
-    likes: {
-      type: Number,
+    videoId: {
+      type: String,
+      required: true,
     },
-    dislikes: {
-      type: Number,
+    thumbnail: {
+      type: String,
+      required: true,
+    },
+    avatar: {
+      type: String,
+      required: true,
     },
   },
   {
@@ -33,4 +39,4 @@ const videoSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Video",videoSchema);
+module.exports = mongoose.model("Video", videoSchema);
