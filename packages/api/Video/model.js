@@ -32,7 +32,7 @@ const videoSchema = mongoose.Schema(
     avatar: {
       type: String,
       required: true,
-    },
+    }
   },
   {
     timeStamps: true,

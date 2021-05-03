@@ -28,9 +28,11 @@ app.get("/", (req, res) => {
 
 // routes
 const videoRoutes = require("./Video/route");
+const userRoutes = require("./Users/route");
 
 // API
 app.use("/api",videoRoutes);
+app.use("/api",userRoutes);
 
 // listen
 app.listen(4000, (req, res) => {

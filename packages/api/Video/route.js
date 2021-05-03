@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const {
   getVideoById,
   getVideos,
@@ -7,7 +8,6 @@ const {
   updateVideo,
   deleteVideo,
 } = require("./controller");
-const router = express.Router();
 
 router.param("videoId", getVideoById);
 
