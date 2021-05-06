@@ -120,7 +120,6 @@ exports.updateUser = async (req, res) => {
   try {
     let updatedUser = req.body;
     const { user } = req;
-    console.log(updatedUser);
     updatedUser = await extend(user, updatedUser);
     updatedUser.save((err, updatedUser) => {
       if (err) {
@@ -141,13 +140,8 @@ exports.updateUserLikedVideos = async (req, res) => {
   try {
     const { videoId } = req.params;
     let { user } = req;
-    // const addLikeVideos = union(videoId.split(" "),user.likedVideos);
-    // console.log(videoId.split(' '))
-    // console.log(user.likedVideos)
-    // console.log(addLikeVideos)
-
     user = extend(user, {
-      likedVideos: union(concat(user.likedVideos, videoId)),
+      likedVideos: concat(user.likedVideos, videoId),
     });
     user.save((err, updatedUser) => {
       if (err) {
@@ -170,7 +164,7 @@ exports.updateUserHistory = async (req, res) => {
     let { user } = req;
 
     user = extend(user, {
-      history: union(concat(user.history, videoId)),
+      history: concat(user.history, videoId),
     });
     user.save((err, updatedUser) => {
       if (err) {

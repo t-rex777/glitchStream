@@ -19,14 +19,14 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Video",
       unique : true
-    },
+    }
   ],
   history: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Video",
       unique : true
-    },
+    }
   ],
 },{timeStamps:true});
 
