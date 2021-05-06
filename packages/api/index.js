@@ -12,10 +12,14 @@ const uri =
   "mongodb+srv://admin_manish:manish1408@cluster0.r7gze.mongodb.net/glitchStream?retryWrites=true&w=majority";
 
 // connecting to server
-mongoose.connect(uri,
-  { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
   .then(console.log("DB CONNECTED!!!!!!!!!!!"))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 // middlewares
 app.use(bodyParser.json());
@@ -31,8 +35,8 @@ const videoRoutes = require("./Video/route");
 const userRoutes = require("./Users/route");
 
 // API
-app.use("/api",videoRoutes);
-app.use("/api",userRoutes);
+app.use("/api", videoRoutes);
+app.use("/api", userRoutes);
 
 // listen
 app.listen(4000, (req, res) => {

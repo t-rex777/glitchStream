@@ -126,7 +126,7 @@ exports.updateVideo = async (req, res) => {
     updatedVideo = extend(video, updatedVideo);
     await updatedVideo.save((err, vid) => {
       if (err) {
-        res.status(400).json({
+       return res.status(400).json({
           message: "Error in updating video",
         });
       }
@@ -145,7 +145,7 @@ exports.deleteVideo = (req, res) => {
     const deleteVideo = req.video;
     deleteVideo.deleteOne((err, vid) => {
       if (err) {
-        res.status(400).json({
+       return res.status(400).json({
           message: "Error in deleteing video",
         });
       }

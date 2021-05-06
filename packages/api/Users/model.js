@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique : true
   },
   password: {
     type: String,
@@ -17,6 +18,7 @@ const userSchema = mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Video",
+      unique : true
     },
   ],
 },{timeStamps:true});
