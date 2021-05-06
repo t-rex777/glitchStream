@@ -21,6 +21,13 @@ const userSchema = mongoose.Schema({
       unique : true
     },
   ],
+  history: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Video",
+      unique : true
+    },
+  ],
 },{timeStamps:true});
 
 module.exports = mongoose.model("User", userSchema);

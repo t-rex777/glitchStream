@@ -56,15 +56,24 @@ exports.getUser = async (req, res) => {
 //   }
 // };
 
-exports.showAllLikedVideos = async (req, res) => {
-  try {
-    res.send(req.user.likedVideos);
-  } catch (error) {
-    res.status(400).json({
-      message: error.message,
-    });
-  }
-};
+// exports.showAllLikedVideos = async (req, res) => {
+//   try {
+//     res.send(req.user.likedVideos);
+//   } catch (error) {
+//     res.status(400).json({
+//       message: error.message,
+//     });
+//   }
+// };
+// exports.showHistory = async (req, res) => {
+//   try {
+//     res.send(req.user.history);
+//   } catch (error) {
+//     res.status(400).json({
+//       message: error.message,
+//     });
+//   }
+// };
 
 // Create
 exports.signUp = async (req, res) => {
@@ -155,6 +164,28 @@ exports.updateUserLikedVideos = async (req, res) => {
   }
 };
 
+exports.updateUserHistory = async (req, res) => {
+  try {
+    const { videoId } = req.params;
+    let { user } = req;
+
+    user = extend(user, {
+      history: union(concat(user.history, videoId)),
+    });
+    user.save((err, updatedUser) => {
+      if (err) {
+        return res.status(400).json({
+          message: "history didn't updated",
+        });
+      }
+      res.send(updatedUser);
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
 
 // Delete
 exports.deleteUser = (req, res) => {
