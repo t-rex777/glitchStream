@@ -1,4 +1,3 @@
 [build]
-base = "/packages/client"
-publish = "/build"
-command = "npm run build"
+publish = "packages/client/build"
+command = "yarn build-client"
