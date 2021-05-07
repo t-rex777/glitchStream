@@ -42,43 +42,6 @@ exports.getUser = async (req, res) => {
   }
 };
 
-// exports.getAllLikedVideos = async (req, res) => {
-//   try {
-//     const { user } = req;
-//     console.log(user);
-//     let finalVideos = [];
-//     // NOTE: send likedvideos to client
-//     await user.likedVideos.forEach(async(videoId) => {
-//      const vid = await Video.findById(videoId)
-//      finalVideos.unshift(vid)
-//     });
-//     console.log(finalVideos)
-//   } catch (error) {
-//     res.status(400).json({
-//       message: error.message,
-//     });
-//   }
-// };
-
-// exports.showAllLikedVideos = async (req, res) => {
-//   try {
-//     res.send(req.user.likedVideos);
-//   } catch (error) {
-//     res.status(400).json({
-//       message: error.message,
-//     });
-//   }
-// };
-// exports.showHistory = async (req, res) => {
-//   try {
-//     res.send(req.user.history);
-//   } catch (error) {
-//     res.status(400).json({
-//       message: error.message,
-//     });
-//   }
-// };
-
 // Create
 exports.signUp = async (req, res) => {
   try {
@@ -140,6 +103,45 @@ exports.updateUser = async (req, res) => {
     });
   }
 };
+
+exports.updateUserPlaylist = async (req, res) => {
+  try {
+    const newPlaylist  = req.body;  //Note:check for destructure
+    let { user } = req;
+    // user.playlists.forEach(playlist=>{
+    //   if(playlist.name === newPlaylist.name){
+    //     console.log("playlist already exists!")
+    //     playlist.videos.forEach(id=>{
+    //       if(newPlaylist.videos.includes(id)){
+    //         console.log("id also included from same playlist")
+    //         return;
+    //       }
+    //       console.log("playlist exists but not id")
+    //     })
+       
+    //     return;
+    //   }
+    //   console.log(newPlaylist,"newplaylist");
+
+    // })
+    user = extend(user, {
+      playlists: concat(user.playlists,newPlaylist),
+    });
+    user.save((err, updatedUser) => {
+      if (err) {
+        return res.status(400).json({
+          message: "playlist didn't updated",
+        });
+      }
+      res.send(updatedUser);
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 
 exports.updateUserSuscription = async (req, res) => {
   try {

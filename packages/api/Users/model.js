@@ -15,11 +15,23 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    playlists: [
+      { 
+        name: String,
+        videos: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Video",
+            unique: true,
+          },
+        ],
+      },
+    ],
     suscriptions: [
       {
         type: String,
         unique: true,
-      }
+      },
     ],
     likedVideos: [
       {
