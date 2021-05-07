@@ -6,7 +6,9 @@ const { Mongoose } = require("mongoose");
 //fining user by Id
 exports.getUserById = async (req, res, next, userId) => {
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId)
+      .populate("likedVideos")
+      .populate("history");
     req.user = user;
     next();
   } catch (error) {
@@ -19,7 +21,9 @@ exports.getUserById = async (req, res, next, userId) => {
 //Read
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({});
+    const users = await User.find({})
+      .populate("likedVideos")
+      .populate("history");
     res.send(users);
   } catch (error) {
     res.status(400).json({
@@ -99,7 +103,8 @@ exports.signIn = async (req, res) => {
     const user = await req.body;
     const { email, password } = user;
     const userEmail = email;
-    await User.findOne({ email: userEmail }).exec((err, user) => {
+    await User.findOne({ email: userEmail }).populate("likedVideos")
+    .populate("history").exec((err, user) => {
       if (err) {
         return res.status(400).json({
           // NOTE: check for error
@@ -125,6 +130,29 @@ exports.updateUser = async (req, res) => {
       if (err) {
         return res.status(400).json({
           message: "User didn't updated",
+        });
+      }
+      res.send(updatedUser);
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.updateUserSuscription = async (req, res) => {
+  try {
+    const { suscriptions } = req.body;
+    let { user } = req;
+    console.log(suscriptions);
+    user = extend(user, {
+      suscriptions: concat(user.suscriptions, suscriptions),
+    });
+    user.save((err, updatedUser) => {
+      if (err) {
+        return res.status(400).json({
+          message: "suscription didn't updated",
         });
       }
       res.send(updatedUser);

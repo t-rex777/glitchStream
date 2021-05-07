@@ -1,34 +1,43 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const userSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    suscriptions: [
+      {
+        type: String,
+        unique: true,
+      }
+    ],
+    likedVideos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Video",
+        unique: true,
+      },
+    ],
+    history: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Video",
+        unique: true,
+      },
+    ],
   },
-  email: {
-    type: String,
-    required: true,
-    unique : true
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  likedVideos: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Video",
-      unique : true
-    }
-  ],
-  history: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Video",
-      unique : true
-    }
-  ],
-},{timeStamps:true});
+  { timeStamps: true }
+);
 
 module.exports = mongoose.model("User", userSchema);
 

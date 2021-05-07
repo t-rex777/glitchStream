@@ -39,6 +39,6 @@ app.use("/api", videoRoutes);
 app.use("/api", userRoutes);
 
 // listen
-app.listen(8989, (req, res) => {
-  console.log("Server is running on port 8989");
+app.listen(4000, (req, res) => {
+  console.log("Server is running on port 4000");
 });
