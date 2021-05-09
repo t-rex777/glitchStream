@@ -29,6 +29,6 @@ router.route("/user/:userId").get(getUser).post(updateUser).delete(deleteUser);
 router.post("/user/:userId/likedvideo/:videoId",updateUserLikedVideos);
 router.post("/user/:userId/suscription",updateUserSuscription);
 router.post("/user/:userId/history/:videoId",updateUserHistory);
-router.post("/user/:userId/playlist/:videoId",updateUserPlaylist);
+router.post("/user/:userId/playlist",updateUserPlaylist);
 
 module.exports = router;

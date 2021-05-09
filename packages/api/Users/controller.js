@@ -8,6 +8,7 @@ exports.getUserById = async (req, res, next, userId) => {
   try {
     const user = await User.findById(userId)
       .populate("likedVideos")
+      .populate("playlist.videos")
       .populate("history");
     req.user = user;
     next();
@@ -66,16 +67,18 @@ exports.signIn = async (req, res) => {
     const user = await req.body;
     const { email, password } = user;
     const userEmail = email;
-    await User.findOne({ email: userEmail }).populate("likedVideos")
-    .populate("history").exec((err, user) => {
-      if (err) {
-        return res.status(400).json({
-          // NOTE: check for error
-          message: "user does not exists!",
-        });
-      }
-      res.json(user);
-    });
+    await User.findOne({ email: userEmail })
+      .populate("likedVideos")
+      .populate("history")
+      .exec((err, user) => {
+        if (err) {
+          return res.status(400).json({
+            // NOTE: check for error
+            message: "user does not exists!",
+          });
+        }
+        res.json(user);
+      });
   } catch (error) {
     res.status(400).json({
       message: error.message,
@@ -106,42 +109,56 @@ exports.updateUser = async (req, res) => {
 
 exports.updateUserPlaylist = async (req, res) => {
   try {
-    const newPlaylist  = req.body;  //Note:check for destructure
+    const newPlaylist = req.body; 
     let { user } = req;
-    // user.playlists.forEach(playlist=>{
-    //   if(playlist.name === newPlaylist.name){
-    //     console.log("playlist already exists!")
-    //     playlist.videos.forEach(id=>{
-    //       if(newPlaylist.videos.includes(id)){
-    //         console.log("id also included from same playlist")
-    //         return;
-    //       }
-    //       console.log("playlist exists but not id")
-    //     })
-       
-    //     return;
-    //   }
-    //   console.log(newPlaylist,"newplaylist");
+    let isSameName = false;
+    user.playlists.forEach((playlist) => {
+      if (playlist.name === newPlaylist.name) {
+        isSameName = true;
+        if (playlist.videos.includes(newPlaylist.videos)) {
+          console.log("same name same id");
+          console.log(user.playlists);
+          return user;
+        } else {
+          console.log("same name, different id");
 
-    // })
-    user = extend(user, {
-      playlists: concat(user.playlists,newPlaylist),
-    });
-    user.save((err, updatedUser) => {
-      if (err) {
-        return res.status(400).json({
-          message: "playlist didn't updated",
-        });
+          user.playlists.forEach((x) => {
+            x.videos = [...x.videos, newPlaylist.videos];
+          });
+          console.log(user.playlists);
+          return user.save((err, updatedUser) => {
+            if (err) {
+              return res.status(400).json({
+                message: "playlist didn't updated",
+              });
+            }
+            res.send(updatedUser);
+          });
+        }
       }
-      res.send(updatedUser);
     });
+    if(!isSameName){
+      console.log("different name");
+      user = extend(user, {
+        playlists: concat(user.playlists, newPlaylist),
+      });
+      console.log(user.playlists);
+      user.save((err, updatedUser) => {
+        if (err) {
+          return res.status(400).json({
+            message: "playlist didn't updated",
+          });
+        }
+        res.send(updatedUser);
+      });
+    }
+
   } catch (error) {
     res.status(400).json({
       message: error.message,
     });
   }
 };
-
 
 exports.updateUserSuscription = async (req, res) => {
   try {
@@ -168,6 +185,7 @@ exports.updateUserSuscription = async (req, res) => {
 
 exports.updateUserLikedVideos = async (req, res) => {
   try {
+    console.log(req.body);
     const { videoId } = req.params;
     let { user } = req;
     user = extend(user, {
