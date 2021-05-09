@@ -10,7 +10,8 @@ const {
   updateUserLikedVideos,
   updateUserHistory,
   updateUserSuscription,
-  updateUserPlaylist
+  updateUserPlaylist,
+  removeUserPlaylist
 } = require("./controller");
 const router = express.Router();
 
@@ -30,5 +31,6 @@ router.post("/user/:userId/likedvideo/:videoId",updateUserLikedVideos);
 router.post("/user/:userId/suscription",updateUserSuscription);
 router.post("/user/:userId/history/:videoId",updateUserHistory);
 router.post("/user/:userId/playlist",updateUserPlaylist);
+router.post("/user/:userId/removeplaylist/:playlistId",removeUserPlaylist);
 
 module.exports = router;

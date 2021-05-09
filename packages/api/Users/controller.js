@@ -8,7 +8,7 @@ exports.getUserById = async (req, res, next, userId) => {
   try {
     const user = await User.findById(userId)
       .populate("likedVideos")
-      .populate("playlist.videos")
+      .populate("playlists.videos")
       .populate("history");
     req.user = user;
     next();
@@ -24,6 +24,7 @@ exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find({})
       .populate("likedVideos")
+      .populate("playlists.videos")
       .populate("history");
     res.send(users);
   } catch (error) {
@@ -69,6 +70,7 @@ exports.signIn = async (req, res) => {
     const userEmail = email;
     await User.findOne({ email: userEmail })
       .populate("likedVideos")
+      .populate("playlists.videos")
       .populate("history")
       .exec((err, user) => {
         if (err) {
@@ -117,7 +119,6 @@ exports.updateUserPlaylist = async (req, res) => {
         isSameName = true;
         if (playlist.videos.includes(newPlaylist.videos)) {
           console.log("same name same id");
-          console.log(user.playlists);
           return user;
         } else {
           console.log("same name, different id");
@@ -125,7 +126,6 @@ exports.updateUserPlaylist = async (req, res) => {
           user.playlists.forEach((x) => {
             x.videos = [...x.videos, newPlaylist.videos];
           });
-          console.log(user.playlists);
           return user.save((err, updatedUser) => {
             if (err) {
               return res.status(400).json({
@@ -142,7 +142,6 @@ exports.updateUserPlaylist = async (req, res) => {
       user = extend(user, {
         playlists: concat(user.playlists, newPlaylist),
       });
-      console.log(user.playlists);
       user.save((err, updatedUser) => {
         if (err) {
           return res.status(400).json({
@@ -185,7 +184,6 @@ exports.updateUserSuscription = async (req, res) => {
 
 exports.updateUserLikedVideos = async (req, res) => {
   try {
-    console.log(req.body);
     const { videoId } = req.params;
     let { user } = req;
     user = extend(user, {
@@ -246,3 +244,33 @@ exports.deleteUser = (req, res) => {
     });
   }
 };
+
+
+exports.removeUserPlaylist = async(req,res) => {
+try {
+  const {user} = req;
+  const {playlistId} = req.params;
+  const playlist = req.body;
+  let newPlaylist = [];
+   user.playlists.forEach(item=>{
+    if(playlistId != item._id){
+      newPlaylist=[...newPlaylist,item];
+    }
+  })
+  newPlaylist = [...newPlaylist,playlist];
+  user.playlists = newPlaylist;
+ await user.save((err, updatedUser) => {
+    if (err) {
+      return res.status(400).json({
+        message: "likedVideos didn't updated",
+      });
+    }
+    res.send(updatedUser);
+  });
+} catch (error) {
+  res.status(400).json({
+    message: error.message,
+  });
+}
+  
+}
