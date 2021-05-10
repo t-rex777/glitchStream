@@ -140,7 +140,7 @@ exports.updateUserPlaylist = async (req, res) => {
     if (!isSameName) {
       console.log("different name");
       user = extend(user, {
-        playlists: concat(newPlaylistuser.playlists),
+        playlists: concat(newPlaylist,user.playlists),
       });
       user.save((err, updatedUser) => {
         if (err) {

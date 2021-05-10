@@ -1,0 +1,35 @@
+.children{
+    grid-area: children;
+}
+.upperNav{
+  grid-area: upperNav;
+  z-index: 1;
+}
+.sideNav{
+  grid-area: sideNav;
+  margin-top: 57px;
+  width: fit-content;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.986);
+}
+.suggestedVideos{
+  grid-area: suggestedVideos;
+  width: fit-content;
+  margin-top: 57px;
+  z-index: 0;
+  width: 100%;
+}
+
+.base {
+  display: grid;
+  grid-template-areas:
+    "upperNav upperNav upperNav"
+    "sideNav children children"
+    "sideNav children children";
+}
+
+@media screen and (max-width:768px){
+  .sideNav{
+    margin-top: 49px;
+  }
+}
