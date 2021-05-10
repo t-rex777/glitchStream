@@ -111,7 +111,7 @@ exports.updateUser = async (req, res) => {
 
 exports.updateUserPlaylist = async (req, res) => {
   try {
-    const newPlaylist = req.body; 
+    const newPlaylist = req.body;
     let { user } = req;
     let isSameName = false;
     user.playlists.forEach((playlist) => {
@@ -137,10 +137,10 @@ exports.updateUserPlaylist = async (req, res) => {
         }
       }
     });
-    if(!isSameName){
+    if (!isSameName) {
       console.log("different name");
       user = extend(user, {
-        playlists: concat(user.playlists, newPlaylist),
+        playlists: concat(newPlaylistuser.playlists),
       });
       user.save((err, updatedUser) => {
         if (err) {
@@ -151,7 +151,6 @@ exports.updateUserPlaylist = async (req, res) => {
         res.send(updatedUser);
       });
     }
-
   } catch (error) {
     res.status(400).json({
       message: error.message,
@@ -165,7 +164,7 @@ exports.updateUserSuscription = async (req, res) => {
     let { user } = req;
     console.log(suscriptions);
     user = extend(user, {
-      suscriptions: concat(user.suscriptions, suscriptions),
+      suscriptions: concat(suscriptions, user.suscriptions),
     });
     user.save((err, updatedUser) => {
       if (err) {
@@ -187,7 +186,7 @@ exports.updateUserLikedVideos = async (req, res) => {
     const { videoId } = req.params;
     let { user } = req;
     user = extend(user, {
-      likedVideos: concat(user.likedVideos, videoId),
+      likedVideos: concat(videoId, user.likedVideos),
     });
     user.save((err, updatedUser) => {
       if (err) {
@@ -208,10 +207,21 @@ exports.updateUserHistory = async (req, res) => {
   try {
     const { videoId } = req.params;
     let { user } = req;
+    let finalArray = [];
 
-    user = extend(user, {
-      history: concat(user.history, videoId),
+    // if (user.history.find((element) => element == videoId)) {
+    user.history.forEach((vid) => {
+      if (vid._id != videoId) {
+        finalArray = [...finalArray, vid._id];
+      }
     });
+    // }
+    finalArray = [videoId, ...finalArray];
+    user.history = finalArray;
+
+    // user = extend(user, {
+    //   history: concat(videoId, user.history),
+    // });
     user.save((err, updatedUser) => {
       if (err) {
         return res.status(400).json({
@@ -245,32 +255,35 @@ exports.deleteUser = (req, res) => {
   }
 };
 
+exports.removeUserPlaylist = async (req, res) => {
+  try {
+    const { user } = req;
+    const { playlistId } = req.params;
+    const playlist = req.body;
+    let newPlaylist = [];
+    user.playlists.forEach((item) => {
+      if (playlistId != item._id) {
+        newPlaylist = [...newPlaylist, item];
+      }
+    });
+    if (playlist.videos.length === 0) {
+      newPlaylist = [...newPlaylist];
+    } else {
+      newPlaylist = [...newPlaylist, playlist];
+    }
 
-exports.removeUserPlaylist = async(req,res) => {
-try {
-  const {user} = req;
-  const {playlistId} = req.params;
-  const playlist = req.body;
-  let newPlaylist = [];
-   user.playlists.forEach(item=>{
-    if(playlistId != item._id){
-      newPlaylist=[...newPlaylist,item];
-    }
-  })
-  newPlaylist = [...newPlaylist,playlist];
-  user.playlists = newPlaylist;
- await user.save((err, updatedUser) => {
-    if (err) {
-      return res.status(400).json({
-        message: "likedVideos didn't updated",
-      });
-    }
-    res.send(updatedUser);
-  });
-} catch (error) {
-  res.status(400).json({
-    message: error.message,
-  });
-}
-  
-}
+    user.playlists = newPlaylist;
+    await user.save((err, updatedUser) => {
+      if (err) {
+        return res.status(400).json({
+          message: "likedVideos didn't updated",
+        });
+      }
+      res.send(updatedUser);
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
