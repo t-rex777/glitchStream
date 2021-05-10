@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "app": "yarn workspace @videolibrary/app start",
-    "server": "yarn workspace @videolibrary/api start",
+    "server": "yarn workspace @videolibrary/api serve",
     "build-app": "yarn workspace @videolibrary/app build",
     "build-server": "yarn workspace @videolibrary/api build",
     "start": "concurrently --kill-others-on-fail \"yarn app\"  \"yarn server\"",
