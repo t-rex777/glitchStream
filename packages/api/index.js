@@ -1,16 +1,16 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
-
+const PORT = 4000 || process.env.PORT;
 //middlewares
 app.use(bodyParser.json());
 app.use(cors());
 
-const uri =
-  "mongodb+srv://admin_manish:manish1408@cluster0.r7gze.mongodb.net/glitchStream?retryWrites=true&w=majority";
-
+const uri = process.env.URI;
+  
 // connecting to server
 mongoose
   .connect(uri, {
@@ -39,6 +39,6 @@ app.use("/api", videoRoutes);
 app.use("/api", userRoutes);
 
 // listen
-app.listen(4000, (req, res) => {
-  console.log("Server is running on port 4000");
+app.listen(PORT, (req, res) => {
+  console.log(`Server is running on port : ${PORT}`);
 });
