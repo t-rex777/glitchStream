@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
-const PORT = 4000 || process.env.PORT;
+const PORT =  process.env.PORT || 4000;
 //middlewares
 app.use(bodyParser.json());
 app.use(cors());
