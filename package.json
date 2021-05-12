@@ -12,7 +12,6 @@
     "build-app": "yarn workspace @videolibrary/app build",
     "build-server": "yarn workspace @videolibrary/api build",
     "start": "concurrently --kill-others-on-fail \"yarn app\"  \"yarn server\"",
-    "build": "concurrently --kill-others-on-fail \"yarn build-app\"  \"yarn build-server\"",
     "start:server" : "yarn workspace @videolibrary/api start"
   },
   "engines": {
