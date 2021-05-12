@@ -32,6 +32,11 @@ function PlaylistModal({ videoId }) {
         const userDetails = await getUserDetails(state.user._id);
         dispatch({ type: "SIGNIN", payload: userDetails });
         dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
+        dispatch({
+          type: "TOAST",
+          payload: `Playlist added`,
+        });
+        dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
       })
       .catch((err) => console.log(err));
   };

@@ -7,7 +7,6 @@ import { RiShareForwardFill } from "react-icons/ri";
 import {
   getUserDetails,
   setHistory,
-  // setHistory,
   setLikeVideo,
   setSuscription,
   updateLikedVideos,
@@ -52,11 +51,6 @@ function VideoPage() {
       }
     })();
   }, []);
-
-  const toastMessage = (message) => {
-    dispatch({ type: "TOAST", payload: message });
-    dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
-  };
 
   const likeVideo = async () => {
     if (user) {
