@@ -22,7 +22,7 @@ function UpperNav() {
   //       setScroll(false);
   //     }
   //   });
-    
+
   //   return () => window.removeEventListener("scroll",()=>console.log("remove"));
   // }, []);
   return (
@@ -59,7 +59,12 @@ function UpperNav() {
             </Link>
           ) : (
             <div className="nav-info">
-              <span className="mobile-view">
+              <span
+                className="mobile-view"
+                onClick={() => {
+                  dispatch({ type: "SIGNOUT" });
+                }}
+              >
                 <AiOutlineLogin />
               </span>
               <span
