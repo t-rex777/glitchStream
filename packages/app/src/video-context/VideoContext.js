@@ -1,5 +1,4 @@
 import React, { createContext, useReducer, useContext, useEffect } from "react";
-import { getUserDetails } from "../components/User/helper";
 import { getAllVideos } from "./../components/VideoCard/helper";
 
 const videoProvider = createContext();
@@ -8,7 +7,6 @@ export const VideoContext = ({ children }) => {
   const reducerFunc = (state, action) => {
     switch (action.type) {
       case "SIGNIN":
-        console.log("signin");
         return { ...state, user: action.payload };
       case "SIGNOUT":
         return { ...state, user: "", video: {} };

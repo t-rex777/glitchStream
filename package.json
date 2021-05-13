@@ -15,7 +15,7 @@
     "start:server" : "yarn workspace @videolibrary/api start"
   },
   "engines": {
-    "node": "12.18.0"
+    "node": "14.15.0"
   },
   "dependencies": {
     "concurrently": "^6.0.2"

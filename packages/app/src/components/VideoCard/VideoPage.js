@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router";
 import { useVideo } from "../../video-context/VideoContext";
 import { getVideoById } from "./helper";
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import { AiFillLike } from "react-icons/ai";
 import { RiShareForwardFill } from "react-icons/ri";
 import {
   getUserDetails,
@@ -13,16 +13,17 @@ import {
 } from "./../User/helper";
 import Base from "./../Base/Base";
 import PlaylistModal from "./PlaylistModal";
-import Toast from "../Toast/Toast";
 
 function VideoPage() {
   const videoSrc = "https://www.youtube.com/embed/";
   const { state, dispatch } = useVideo();
   const { user, video } = state;
   const { videoId } = useParams();
+  const [isSuscbribed, setIsSuscbribed] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [iconColor, setIconColor] = useState({
-    color: "#fff",
+    like: { color: "#fff" },
+    dislike: { color: "#fff" },
   });
   useEffect(() => {
     (async () => {
@@ -32,15 +33,17 @@ function VideoPage() {
 
     if (user) {
       if (user.likedVideos.find((element) => element._id === `${videoId}`)) {
-        setIconColor({ color: "red" });
+        setIconColor({ ...iconColor, like: { color: "red" } });
         return;
       }
     }
-
+    // adding history
     (async () => {
       if (user) {
+        console.log("user is there");
         await setHistory(user._id, videoId)
           .then(async (data) => {
+            console.log("history");
             const userDetails = await getUserDetails(user._id);
             dispatch({ type: "SIGNIN", payload: userDetails });
             dispatch({ type: "HISTORY", payload: userDetails.history });
@@ -50,20 +53,46 @@ function VideoPage() {
         setRedirect(true);
       }
     })();
+
+    (async () => {
+      user &&
+       await user.suscriptions.forEach((sus) => {
+          if (sus === video.uploadedBy) {
+            setIsSuscbribed(true);
+          }
+        });
+    })();
   }, []);
 
   const likeVideo = async () => {
     if (user) {
       if (user.likedVideos.find((element) => element._id === `${videoId}`)) {
         console.log("already liked!");
+        (async () => {
+          const finalVideoIds = [];
+          user.likedVideos.forEach((video) => {
+            if (video._id !== videoId) {
+              finalVideoIds.push(video._id);
+            }
+          });
+          setIconColor({ ...iconColor, like: { color: "#fff" } });
+          await updateLikedVideos(
+            user._id,
+            JSON.stringify({ likedVideos: finalVideoIds })
+          )
+            .then(async (data) => {
+              const userDetails = await getUserDetails(user._id);
+              dispatch({ type: "SIGNIN", payload: userDetails });
+            })
+            .catch((err) => console.log(err));
+        })();
         return;
       }
+      setIconColor({ ...iconColor, like: { color: "red" } });
       await setLikeVideo(user._id, videoId)
         .then(async (data) => {
           const userDetails = await getUserDetails(user._id);
           dispatch({ type: "SIGNIN", payload: userDetails });
-
-          setIconColor({color:"red"})
         })
         .catch((err) => console.log(err));
     } else {
@@ -71,21 +100,21 @@ function VideoPage() {
     }
   };
 
-  const dislikeVideo = async () => {
-    const finalVideoIds = [];
-    user.likedVideos.forEach((video) => {
-      if (video._id !== videoId) {
-        finalVideoIds.push(video._id);
-      }
-    });
-    updateLikedVideos(user._id, JSON.stringify({ likedVideos: finalVideoIds }))
-      .then(async (data) => {
-        setIconColor({color:"#fff"})
-        const userDetails = await getUserDetails(user._id);
-        dispatch({ type: "SIGNIN", payload: userDetails });
-      })
-      .catch((err) => console.log(err));
-  };
+  // const dislikeVideo = async () => {
+  //   const finalVideoIds = [];
+  //   user.likedVideos.forEach((video) => {
+  //     if (video._id !== videoId) {
+  //       finalVideoIds.push(video._id);
+  //     }
+  //   });
+  //   updateLikedVideos(user._id, JSON.stringify({ likedVideos: finalVideoIds }))
+  //     .then(async (data) => {
+  //       setIconColor({ ...iconColor, like: { color: "#fff" } });
+  //       const userDetails = await getUserDetails(user._id);
+  //       dispatch({ type: "SIGNIN", payload: userDetails });
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const suscribeVideo = async () => {
     if (user) {
@@ -126,14 +155,18 @@ function VideoPage() {
             <div className="video-interactions mt-1">
               <span
                 className="interaction-item"
-                style={iconColor}
+                style={iconColor.like}
                 onClick={likeVideo}
               >
                 <AiFillLike />
               </span>
-              <span className="interaction-item" onClick={dislikeVideo}>
+              {/* <span
+                className="interaction-item"
+                style={iconColor.dislike}
+                onClick={dislikeVideo}
+              >
                 <AiFillDislike />
-              </span>
+              </span> */}
               <span className="interaction-item ">
                 <RiShareForwardFill />
                 <p>Share</p>
@@ -153,9 +186,13 @@ function VideoPage() {
                   <p className="video-desc mt-4">{video.description}</p>
                 </span>
               </span>
-              <button className="suscribe-btn" onClick={suscribeVideo}>
-                SUSCRIBE
-              </button>
+              {!isSuscbribed ? (
+                <button className="suscribe-btn">SUSCRIBED</button>
+              ) : (
+                <button className="suscribe-btn" onClick={suscribeVideo}>
+                  SUSCRIBE
+                </button>
+              )}
             </div>
           </>
         ) : (

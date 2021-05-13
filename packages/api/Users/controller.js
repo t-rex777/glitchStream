@@ -140,7 +140,7 @@ exports.updateUserPlaylist = async (req, res) => {
     if (!isSameName) {
       console.log("different name");
       user = extend(user, {
-        playlists: concat(newPlaylist,user.playlists),
+        playlists: concat(newPlaylist, user.playlists),
       });
       user.save((err, updatedUser) => {
         if (err) {
@@ -216,13 +216,12 @@ exports.updateUserHistory = async (req, res) => {
       }
     });
     // }
-    finalArray = [videoId, ...finalArray];
+    // console.log(finalArray, "before");
+    finalArray = union([videoId],finalArray);
+    // console.log(finalArray, "after");
     user.history = finalArray;
 
-    // user = extend(user, {
-    //   history: concat(videoId, user.history),
-    // });
-    user.save((err, updatedUser) => {
+    await user.save((err, updatedUser) => {
       if (err) {
         return res.status(400).json({
           message: "history didn't updated",

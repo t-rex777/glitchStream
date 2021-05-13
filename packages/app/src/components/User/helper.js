@@ -80,6 +80,7 @@ export const removeUserPlaylist = (userId,playlistId,playlist) => {
 };
 
 export const setHistory = (userId, videoId) => {
+  console.log("history read")
   return fetch(`${API}/user/${userId}/history/${videoId}`, {
     method: "post",
   })
