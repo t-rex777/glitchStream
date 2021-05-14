@@ -3,7 +3,7 @@ import { Redirect, useParams } from "react-router";
 import { useVideo } from "../../video-context/VideoContext";
 import { getVideoById } from "./helper";
 import { AiFillLike } from "react-icons/ai";
-import { RiShareForwardFill } from "react-icons/ri";
+
 import {
   getUserDetails,
   setHistory,
@@ -13,6 +13,7 @@ import {
 } from "./../User/helper";
 import Base from "./../Base/Base";
 import PlaylistModal from "./PlaylistModal";
+import ShareModal from './ShareModal';
 
 function VideoPage() {
   const videoSrc = "https://www.youtube.com/embed/";
@@ -101,22 +102,6 @@ function VideoPage() {
     }
   };
 
-  // const dislikeVideo = async () => {
-  //   const finalVideoIds = [];
-  //   user.likedVideos.forEach((video) => {
-  //     if (video._id !== videoId) {
-  //       finalVideoIds.push(video._id);
-  //     }
-  //   });
-  //   updateLikedVideos(user._id, JSON.stringify({ likedVideos: finalVideoIds }))
-  //     .then(async (data) => {
-  //       setIconColor({ ...iconColor, like: { color: "#fff" } });
-  //       const userDetails = await getUserDetails(user._id);
-  //       dispatch({ type: "SIGNIN", payload: userDetails });
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   const suscribeVideo = async () => {
     if (user) {
       if (
@@ -139,6 +124,9 @@ function VideoPage() {
       setRedirect(true);
     }
   };
+
+ 
+
   return (
     <Base>
       {redirect && <Redirect to="/signin" />}
@@ -169,10 +157,11 @@ function VideoPage() {
               >
                 <AiFillDislike />
               </span> */}
-              <span className="interaction-item ">
-                <RiShareForwardFill />
-                <p>Share</p>
-              </span>
+              
+              {/* SHARE MODAL STARTS*/}
+              <ShareModal  videoSrc = {videoSrc} video={video}  />
+              {/* SHARE MODAL ENDS */}
+
               {/* MODAL HERE */}
               <PlaylistModal videoId={videoId} />
               {/* MODAL END */}
