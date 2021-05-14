@@ -7,13 +7,7 @@ import { useVideo } from "../../video-context/VideoContext";
 function UpperNav() {
   const { state, dispatch } = useVideo();
   const [scroll, setScroll] = useState(false);
-  // const onKeyDown = (event) => { console.log(event) }
-
-  // useEffect(() => {
-  //   window.addEventListener('keydown', onKeyDown)
-
-  //   return () => { window.removeEventListener('keydown', onKeyDown) }
-  // }, [])
+  
   // useEffect(() => {
   //   window.addEventListener("scroll", () => {
   //     if (window.scrollY > 100) {

@@ -9,34 +9,36 @@ import { getUserDetails, removeUserPlaylist } from "../User/helper";
 function Playlist() {
   const { state, dispatch } = useVideo();
 
-  const deleteUserPlaylist = (playlistId, videoId) => {
-    const finalPlaylist = [];
-    const selectedPlaylist = state.playlist.find(
-      (vid) => vid._id === playlistId
-    );
-    selectedPlaylist.videos.forEach((item) => {
-      if (item._id !== videoId) {
-        finalPlaylist.push(item);
-      }
-    });
+  const deleteUserPlaylist = async (playlistId, videoId) => {
+    try {
+      const finalPlaylist = [];
+      const selectedPlaylist = state.playlist.find(
+        (vid) => vid._id === playlistId
+      );
+      selectedPlaylist.videos.forEach((item) => {
+        if (item._id !== videoId) {
+          finalPlaylist.push(item);
+        }
+      });
 
-    const obj = {
-      name: selectedPlaylist.name,
-      _id: playlistId,
-      videos: finalPlaylist,
-    };
-    removeUserPlaylist(state.user._id, playlistId, obj)
-      .then(async (data) => {
-        const userDetails = await getUserDetails(state.user._id);
-        dispatch({ type: "SIGNIN", payload: userDetails });
-        dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
-        dispatch({
-          type: "TOAST",
-          payload: `Video removed from ${selectedPlaylist.name}`,
-        });
-        dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
-      })
-      .catch((err) => console.log(err));
+      const obj = {
+        name: selectedPlaylist.name,
+        _id: playlistId,
+        videos: finalPlaylist,
+      };
+
+      await removeUserPlaylist(state.user._id, playlistId, obj);
+      const userDetails = await getUserDetails(state.user._id);
+      dispatch({ type: "SIGNIN", payload: userDetails });
+      dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
+      dispatch({
+        type: "TOAST",
+        payload: `Video removed from ${selectedPlaylist.name}`,
+      });
+      dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -41,14 +41,15 @@ function VideoPage() {
     (async () => {
       if (user) {
         console.log("user is there");
-        await setHistory(user._id, videoId)
-          .then(async (data) => {
-            console.log("history");
-            const userDetails = await getUserDetails(user._id);
-            dispatch({ type: "SIGNIN", payload: userDetails });
-            dispatch({ type: "HISTORY", payload: userDetails.history });
-          })
-          .catch((err) => console.log(err));
+        const data = await setHistory(user._id, videoId);
+        try {
+          console.log("history");
+          const userDetails = await getUserDetails(user._id);
+          await dispatch({ type: "SIGNIN", payload: userDetails });
+          await dispatch({ type: "HISTORY", payload: userDetails.history });
+        } catch (error) {
+          console.log(error);
+        }
       } else {
         setRedirect(true);
       }
@@ -56,11 +57,11 @@ function VideoPage() {
 
     (async () => {
       user &&
-       await user.suscriptions.forEach((sus) => {
+        (await user.suscriptions.forEach((sus) => {
           if (sus === video.uploadedBy) {
             setIsSuscbribed(true);
           }
-        });
+        }));
     })();
   }, []);
 
@@ -127,12 +128,13 @@ function VideoPage() {
       var obj = {
         suscriptions: video.uploadedBy,
       };
-      await setSuscription(user._id, obj)
-        .then(async (data) => {
-          const userDetails = await getUserDetails(user._id);
-          dispatch({ type: "SIGNIN", payload: userDetails });
-        })
-        .catch((err) => console.log(err));
+      const data = await setSuscription(user._id, obj);
+      try {
+        const userDetails = await getUserDetails(user._id);
+        dispatch({ type: "SIGNIN", payload: userDetails });
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       setRedirect(true);
     }

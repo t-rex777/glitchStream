@@ -9,36 +9,41 @@ function PlaylistModal({ videoId }) {
   const { state, dispatch } = useVideo();
 
   const [modalStyle, setModalStyle] = useState({ display: "none" });
-  const [inputText, setInputText] = useState();
+  const [inputText, setInputText] = useState("");
   const [newPlaylist, setNewPlaylist] = useState([]);
   const [redirect, setRedirect] = useState(false);
 
-  const addPlaylist = (e) => {
-    if (!state.user) {
-      return setRedirect(true);
-    }
-    if (!e.target.checked) {
-      console.log("unchecked");
-      return;
-    }
+  const addPlaylist = async (e) => {
+    try {
+      if (!state.user) {
+        return setRedirect(true);
+      }
+      if (!e.target.checked) {
+        console.log("unchecked");
+        return;
+      }
 
-    const obj = {
-      name: e.target.value,
-      videos: videoId,
-    };
-    setPlaylist(state.user._id, obj)
-      .then(async (data) => {
+      const obj = {
+        name: e.target.value,
+        videos: videoId,
+      };
+      const data = await setPlaylist(state.user._id, obj);
+      try {
         setNewPlaylist([]);
         const userDetails = await getUserDetails(state.user._id);
-        dispatch({ type: "SIGNIN", payload: userDetails });
-        dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
-        dispatch({
+        await dispatch({ type: "SIGNIN", payload: userDetails });
+        await dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
+        await dispatch({
           type: "TOAST",
           payload: `Playlist added`,
         });
-        dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
-      })
-      .catch((err) => console.log(err));
+        await dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   // modal
   const modalClick = (e) => {
@@ -74,7 +79,13 @@ function PlaylistModal({ videoId }) {
               </span>
               <p className="mt-3 mb-3">Save to...</p>
 
-              <form>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setInputText("");
+                  setNewPlaylist([...newPlaylist, inputText]);
+                }}
+              >
                 {state.user &&
                   state.user.playlists.map((playlist) => {
                     return (
@@ -84,7 +95,8 @@ function PlaylistModal({ videoId }) {
                           className="mr-1 mb-2"
                           id={playlist._id}
                           name={playlist._id}
-                          value={playlist.name}
+                          // value={playlist.name}
+                          defaultValue={playlist.name}
                           onClick={addPlaylist}
                         />
                         <label htmlFor={playlist._id}>{playlist.name}</label>
@@ -100,7 +112,8 @@ function PlaylistModal({ videoId }) {
                         className="mr-1 mb-2"
                         id={i}
                         name={i}
-                        value={playlist}
+                        // value={playlist}
+                        defaultValue={playlist}
                         onClick={addPlaylist}
                       />
                       <label htmlFor={i}>{playlist}</label>
@@ -113,20 +126,13 @@ function PlaylistModal({ videoId }) {
                   type="text"
                   value={inputText}
                   id="newPlaylist"
-                  onChange={(e) => {
-                    setInputText(e.target.value);
-                  }}
+                  onChange={(e) => setInputText(e.target.value)}
                 />
                 <br />
                 <button
                   type="submit"
                   className="playlist-submit m-2"
                   disabled={!inputText}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setInputText("");
-                    setNewPlaylist([...newPlaylist, inputText]);
-                  }}
                 >
                   Add
                 </button>
