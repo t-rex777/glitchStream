@@ -7,7 +7,7 @@ import { useVideo } from "../../video-context/VideoContext";
 function UpperNav() {
   const { state, dispatch } = useVideo();
   const [scroll, setScroll] = useState(false);
-  
+
   // useEffect(() => {
   //   window.addEventListener("scroll", () => {
   //     if (window.scrollY > 100) {

@@ -14,21 +14,26 @@ function PlaylistModal({ videoId }) {
   const [redirect, setRedirect] = useState(false);
 
   const addPlaylist = async (e) => {
-    try {
-      if (!state.user) {
-        return setRedirect(true);
-      }
-      if (!e.target.checked) {
-        console.log("unchecked");
-        return;
-      }
+    dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
 
-      const obj = {
-        name: e.target.value,
-        videos: videoId,
-      };
-      const data = await setPlaylist(state.user._id, obj);
-      try {
+    if (!state.user) {
+      return setRedirect(true);
+    }
+    if (!e.target.checked) {
+      console.log("unchecked");
+      return;
+    }
+
+    const obj = {
+      name: e.target.value,
+      videos: videoId,
+    };
+    const data = await setPlaylist(state.user._id, obj);
+    try {
+      dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
+      if (data !== undefined) {
+        dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+
         setNewPlaylist([]);
         const userDetails = await getUserDetails(state.user._id);
         await dispatch({ type: "SIGNIN", payload: userDetails });
@@ -38,8 +43,6 @@ function PlaylistModal({ videoId }) {
           payload: `Playlist added`,
         });
         await dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
-      } catch (error) {
-        console.log(error);
       }
     } catch (error) {
       console.log(error);
@@ -64,6 +67,34 @@ function PlaylistModal({ videoId }) {
     };
   }, []);
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
+    setNewPlaylist([...newPlaylist, inputText]);
+    const obj = {
+      name: inputText,
+      videos: videoId,
+    };
+    const data = await setPlaylist(state.user._id, obj);
+    try {
+      if (data !== undefined) {
+        dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+        setNewPlaylist([]);
+        const userDetails = await getUserDetails(state.user._id);
+        await dispatch({ type: "SIGNIN", payload: userDetails });
+        await dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
+        await dispatch({
+          type: "TOAST",
+          payload: `Playlist added`,
+        });
+        await dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
+      }
+      setInputText("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {!redirect ? (
@@ -78,14 +109,8 @@ function PlaylistModal({ videoId }) {
                 &times;
               </span>
               <p className="mt-3 mb-3">Save to...</p>
-
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setInputText("");
-                  setNewPlaylist([...newPlaylist, inputText]);
-                }}
-              >
+              {/*NOTE: check if the video is present or not then check it */}
+              <form onSubmit={onSubmit}>
                 {state.user &&
                   state.user.playlists.map((playlist) => {
                     return (

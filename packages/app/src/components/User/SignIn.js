@@ -22,18 +22,22 @@ function SignIn() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signInUser(user)
-      .then((data) => {
+    dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
+    const data = await signInUser(user);
+    try {
+      if (data !== undefined) {
+        dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
         dispatch({ type: "SIGNIN", payload: data });
         dispatch({ type: "PLAYLIST", payload: data.playlists });
         dispatch({ type: "HISTORY", payload: data.history });
-        console.log({data})
+        console.log({ data });
         setRedirect(true);
-      })
-      .catch((err) => console.log(err));
-
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Base>

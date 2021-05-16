@@ -13,7 +13,7 @@ import {
 } from "./../User/helper";
 import Base from "./../Base/Base";
 import PlaylistModal from "./PlaylistModal";
-import ShareModal from './ShareModal';
+import ShareModal from "./ShareModal";
 
 function VideoPage() {
   const videoSrc = "https://www.youtube.com/embed/";
@@ -68,6 +68,7 @@ function VideoPage() {
 
   const likeVideo = async () => {
     if (user) {
+      dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
       if (user.likedVideos.find((element) => element._id === `${videoId}`)) {
         console.log("already liked!");
         (async () => {
@@ -77,26 +78,34 @@ function VideoPage() {
               finalVideoIds.push(video._id);
             }
           });
-          setIconColor({ ...iconColor, like: { color: "#fff" } });
-          await updateLikedVideos(
+          const data = await updateLikedVideos(
             user._id,
             JSON.stringify({ likedVideos: finalVideoIds })
-          )
-            .then(async (data) => {
+          );
+          try {
+            if (data !== undefined) {
+              dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+              setIconColor({ ...iconColor, like: { color: "#fff" } });
               const userDetails = await getUserDetails(user._id);
               dispatch({ type: "SIGNIN", payload: userDetails });
-            })
-            .catch((err) => console.log(err));
+            }
+          } catch (error) {
+            console.log(error);
+          }
         })();
         return;
       }
-      setIconColor({ ...iconColor, like: { color: "red" } });
-      await setLikeVideo(user._id, videoId)
-        .then(async (data) => {
+      const data2 = await setLikeVideo(user._id, videoId);
+      try {
+        if (data2 !== undefined) {
+          dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+          setIconColor({ ...iconColor, like: { color: "red" } });
           const userDetails = await getUserDetails(user._id);
           dispatch({ type: "SIGNIN", payload: userDetails });
-        })
-        .catch((err) => console.log(err));
+        }
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       setRedirect(true);
     }
@@ -104,6 +113,8 @@ function VideoPage() {
 
   const suscribeVideo = async () => {
     if (user) {
+      dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
+
       if (
         user.suscriptions.find((element) => element === `${video.uploadedBy}`)
       ) {
@@ -115,8 +126,12 @@ function VideoPage() {
       };
       const data = await setSuscription(user._id, obj);
       try {
-        const userDetails = await getUserDetails(user._id);
-        dispatch({ type: "SIGNIN", payload: userDetails });
+        if (data !== undefined) {
+          dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+          setIsSuscbribed(true)
+          const userDetails = await getUserDetails(user._id);
+          dispatch({ type: "SIGNIN", payload: userDetails });
+        }
       } catch (error) {
         console.log(error);
       }
@@ -124,8 +139,6 @@ function VideoPage() {
       setRedirect(true);
     }
   };
-
- 
 
   return (
     <Base>
@@ -157,9 +170,9 @@ function VideoPage() {
               >
                 <AiFillDislike />
               </span> */}
-              
+
               {/* SHARE MODAL STARTS*/}
-              <ShareModal  videoSrc = {videoSrc} video={video}  />
+              <ShareModal videoSrc={videoSrc} video={video} />
               {/* SHARE MODAL ENDS */}
 
               {/* MODAL HERE */}

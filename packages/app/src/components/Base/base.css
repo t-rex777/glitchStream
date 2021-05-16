@@ -7,10 +7,7 @@
 }
 .sideNav{
   grid-area: sideNav;
-  margin-top: 57px;
-  width: fit-content;
-  z-index: 0;
-  background-color: rgba(0, 0, 0, 0.986);
+ 
 }
 .suggestedVideos{
   grid-area: suggestedVideos;

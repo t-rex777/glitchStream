@@ -22,6 +22,8 @@ export const VideoContext = ({ children }) => {
         return { ...state, toast: action.payload };
       case "TOAST_STYLE":
         return { ...state, toastStyle: action.payload };
+        case "LOADING_STYLE":
+        return { ...state, loadingStyle: action.payload };
       default:
         throw new Error();
     }
@@ -34,6 +36,7 @@ export const VideoContext = ({ children }) => {
     history: [],
     toast: "",
     toastStyle: {display:"none"},
+    loadingStyle : {display : "none"}
   });
 
   useEffect(() => {

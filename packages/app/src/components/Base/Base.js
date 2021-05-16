@@ -4,6 +4,7 @@ import SideNav from "../Nav/SideNav";
 import UpperNav from "./../Nav/UpperNav";
 import "./base.css";
 import Toast from './../Toast/Toast';
+import Loading from '../Loading/Loading';
 
 function Base({ children }) {
   const {state} = useVideo();
@@ -15,8 +16,10 @@ function Base({ children }) {
       <div className="sideNav">
       <SideNav/>
       </div>
-      <div className="children"> {children}</div>
+      <div className="children"> {children}
+      <Loading/></div>
       {state.toast && <Toast />} 
+      
       <div className="suggestedVideos"></div>
     </div>
   );
