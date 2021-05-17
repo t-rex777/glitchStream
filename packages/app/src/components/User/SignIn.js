@@ -32,7 +32,6 @@ function SignIn() {
         dispatch({ type: "SIGNIN", payload: data });
         dispatch({ type: "PLAYLIST", payload: data.playlists });
         dispatch({ type: "HISTORY", payload: data.history });
-        console.log({ data });
         setRedirect(true);
       }
     } catch (error) {

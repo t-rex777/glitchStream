@@ -42,7 +42,8 @@ function VideoPage() {
     (async () => {
       if (user) {
         console.log("user is there");
-        const data = await setHistory(user._id, videoId);
+        // const data =
+        await setHistory(user._id, videoId);
         try {
           console.log("history");
           const userDetails = await getUserDetails(user._id);
@@ -55,16 +56,13 @@ function VideoPage() {
         setRedirect(true);
       }
     })();
-
-    (async () => {
-      user &&
-        (await user.suscriptions.forEach((sus) => {
-          if (sus === video.uploadedBy) {
-            setIsSuscbribed(true);
-          }
-        }));
-    })();
   }, []);
+
+  useEffect(() => {
+    user &&
+      user.suscriptions.includes(video.uploadedBy) &&
+      setIsSuscbribed(true);
+  }, [video]);
 
   const likeVideo = async () => {
     if (user) {
@@ -119,6 +117,7 @@ function VideoPage() {
         user.suscriptions.find((element) => element === `${video.uploadedBy}`)
       ) {
         console.log("already suscribed!");
+        dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
         return;
       }
       var obj = {
@@ -128,7 +127,7 @@ function VideoPage() {
       try {
         if (data !== undefined) {
           dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
-          setIsSuscbribed(true)
+          setIsSuscbribed(true);
           const userDetails = await getUserDetails(user._id);
           dispatch({ type: "SIGNIN", payload: userDetails });
         }
@@ -171,13 +170,9 @@ function VideoPage() {
                 <AiFillDislike />
               </span> */}
 
-              {/* SHARE MODAL STARTS*/}
               <ShareModal videoSrc={videoSrc} video={video} />
-              {/* SHARE MODAL ENDS */}
 
-              {/* MODAL HERE */}
               <PlaylistModal videoId={videoId} />
-              {/* MODAL END */}
             </div>
 
             <h1 className="mt-2 mb-3 text-md">{video.name}</h1>
@@ -190,7 +185,7 @@ function VideoPage() {
                   <p className="video-desc mt-4">{video.description}</p>
                 </span>
               </span>
-              {!isSuscbribed ? (
+              {isSuscbribed ? (
                 <button className="suscribe-btn">SUSCRIBED</button>
               ) : (
                 <button className="suscribe-btn" onClick={suscribeVideo}>

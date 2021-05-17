@@ -1,39 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiFillHome, AiOutlineHistory, AiTwotoneLike } from "react-icons/ai";
 import { MdPlaylistAddCheck } from "react-icons/md";
 import { RiVideoFill } from "react-icons/ri";
-import { ImCross } from "react-icons/im";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { useVideo } from "../../video-context/VideoContext";
 function SideNav() {
-  const { state } = useVideo();
-  const [ham, setHam] = useState(true);
-  const toggleHam = () => {
-    setHam(!ham);
-  };
+  const { state} = useVideo();
+  const {ham} = state;
   return (
     <div
       className={` ${ham ? "view-mobile" : "big-view"}`}
       style={ham ? { transition: "300ms" } : { transition: "300ms" }}
     >
-      <span
+      {/* <span
         className="stacked-list-item ham"
-        onClick={toggleHam}
+        onClick={()=>{
+          dispatch({type:"HAM"})
+        }}
         style={ham ? { display: "block" } : { display: "none" }}
       >
         <GiHamburgerMenu />
-      </span>
+      </span> */}
 
       <ul
         className="stacked-list"
         style={ham ? { left: "-200px" } : { left: "0px" }}
       >
-        <li className="stacked-list-item cross" onClick={toggleHam}>
+        {/* <li className="stacked-list-item cross" onClick={()=>{
+          dispatch({type:"HAM"})
+        }}>
           <h3>
             <ImCross />
           </h3>
-        </li>
+        </li> */}
 
         <Link to="/" style={{ textDecoration: "none" }}>
           <li className="stacked-list-item">

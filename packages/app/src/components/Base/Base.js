@@ -4,7 +4,7 @@ import SideNav from "../Nav/SideNav";
 import UpperNav from "./../Nav/UpperNav";
 import "./base.css";
 import Toast from './../Toast/Toast';
-import Loading from '../Loading/Loading';
+import Loading from '../Loader/Loading';
 
 function Base({ children }) {
   const {state} = useVideo();
