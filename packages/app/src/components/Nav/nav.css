@@ -55,6 +55,7 @@
 .full-view {
   display: inline;
 }
+
 @media screen and (max-width: 786px) {
   .mobile-view {
     display: inline;
@@ -103,9 +104,6 @@ hr {
   width: 95%;
   margin: 0 auto;
 }
-.ham {
-  display: none;
-}
 .ham:hover{
   background-color: transparent;
 }
@@ -117,14 +115,17 @@ hr {
 }
 
 @media screen and (max-width: 768px) {
+  .stacked-list{
+    margin-top: 20px;
+  }
   .stacked-list-item {
-    font-size: 0.5rem;
-    padding: 20px 10px;
+    font-size: 0.8rem;
+    padding: 17px 10px;
   }
   .view-mobile {
     width: 0px;
   }
   .big-view {
-    width: 100px;
+    width: 150px;
   }
 }

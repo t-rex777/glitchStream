@@ -29,7 +29,7 @@ function UpperNav() {
             onClick={() => {
               dispatch({ type: "HAM" });
             }}
-            style={{ display: "block" }}
+            style={{ display: "block", }}
           >
             <GiHamburgerMenu />
           </span>

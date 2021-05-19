@@ -48,58 +48,62 @@ function Playlist() {
 
   return (
     <Base>
-      <h1 style={{ marginTop: "100px" }}>Playlist</h1>
-      {state.playlist.map((video) => {
-        return (
-          <div key={video._id} className="playlist-card mt-4">
-            <h2 className="ml-3">{video.name}</h2>
+      <div className="playlist content-center">
+        <h1 style={{ marginTop: "100px" }}>Playlist</h1>
+        <div className="">
+          {state.playlist.map((video) => {
+            return (
+              <div key={video._id} className="playlist-card mt-4">
+                <h2 className="text-center">{video.name}</h2>
 
-            <div className="videoPlaylist">
-              {video.videos.map((vid, index) => {
-                return (
-                  <div className="videoCard" key={index}>
-                    <Link to={`/video/${vid._id}`}>
-                      <img
-                        src={vid.thumbnail}
-                        alt="vid"
-                        className="videoThumbnail"
-                      />
-                    </Link>
+                <div className="videoPlaylist">
+                  {video.videos.map((vid, index) => {
+                    return (
+                      <div className="videoCard" key={index}>
+                        <Link to={`/video/${vid._id}`}>
+                          <img
+                            src={vid.thumbnail}
+                            alt="vid"
+                            className="videoThumbnail"
+                          />
+                        </Link>
 
-                    <span className="video-uploader">
-                      <img
-                        src={vid.avatar}
-                        alt=""
-                        style={{
-                          height: "30px",
-                          width: "30px",
-                          borderRadius: "50%",
-                          position: "relative",
-                          top: "10px",
-                        }}
-                      />
-                      <span>
-                        <h3>{vid.name}</h3>
-                        <p className="text-gray text-xs m-1">
-                          {vid.uploadedBy}
-                        </p>
-                      </span>
-                    </span>
-                    <span
-                      className="deletePlaylist"
-                      onClick={() => {
-                        deleteUserPlaylist(video._id, vid._id);
-                      }}
-                    >
-                      <AiFillDelete />
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
+                        <span className="video-uploader">
+                          <img
+                            src={vid.avatar}
+                            alt=""
+                            style={{
+                              height: "30px",
+                              width: "30px",
+                              borderRadius: "50%",
+                              position: "relative",
+                              top: "10px",
+                            }}
+                          />
+                          <span>
+                            <h3>{vid.name}</h3>
+                            <p className="text-gray text-xs m-1">
+                              {vid.uploadedBy}
+                            </p>
+                          </span>
+                        </span>
+                        <span
+                          className="deletePlaylist"
+                          onClick={() => {
+                            deleteUserPlaylist(video._id, vid._id);
+                          }}
+                        >
+                          <AiFillDelete />
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </Base>
   );
 }
