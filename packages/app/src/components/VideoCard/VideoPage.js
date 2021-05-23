@@ -13,7 +13,7 @@ import {
 } from "./../User/helper";
 import Base from "./../Base/Base";
 import PlaylistModal from "./PlaylistModal";
-import ShareModal from "./ShareModal";
+// import ShareModal from "./ShareModal";
 
 function VideoPage() {
   const videoSrc = "https://www.youtube.com/embed/";
@@ -170,7 +170,7 @@ function VideoPage() {
                 <AiFillDislike />
               </span> */}
 
-              <ShareModal videoSrc={videoSrc} video={video} />
+              {/* <ShareModal videoSrc={videoSrc} video={video} /> */}
 
               <PlaylistModal videoId={videoId} />
             </div>

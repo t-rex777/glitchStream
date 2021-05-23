@@ -44,8 +44,12 @@ export const VideoContext = ({ children }) => {
 
   useEffect(() => {
     (async () => {
+      dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
       const videos = await getAllVideos();
-      dispatch({ type: "VIDEOS", payload: videos });
+      if (videos !== undefined) {
+        dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+        dispatch({ type: "VIDEOS", payload: videos });
+      }
     })();
   }, []);
   return (
