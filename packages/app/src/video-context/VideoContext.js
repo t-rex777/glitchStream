@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useContext, useEffect } from "react";
 import { getAllVideos } from "./../components/VideoCard/helper";
+import { getUserDetails } from './../components/User/helper';
 
 const videoProvider = createContext();
 
@@ -26,6 +27,8 @@ export const VideoContext = ({ children }) => {
         return { ...state, toastStyle: action.payload };
       case "LOADING_STYLE":
         return { ...state, loadingStyle: action.payload };
+      case "SET_ACCESS_TOKEN":
+        return { ...state, accessToken: action.payload };
       default:
         throw new Error();
     }
@@ -40,7 +43,16 @@ export const VideoContext = ({ children }) => {
     ham: true,
     toastStyle: { display: "none" },
     loadingStyle: { display: "none" },
+    accessToken: "",
   });
+
+  // useEffect(()=>{
+  //   (async()=>{
+  //     if(localStorage.getItem("refreshToken")){
+  //       const userDetails = await getUserDetails()
+  //     }
+  //   })()
+  // },[])
 
   useEffect(() => {
     (async () => {

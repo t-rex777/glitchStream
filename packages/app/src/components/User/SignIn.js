@@ -26,12 +26,16 @@ function SignIn() {
     e.preventDefault();
     dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
     const data = await signInUser(user);
+
     try {
       if (data !== undefined) {
+        const { user: userDetails, accessToken, refreshToken } = data;
+        localStorage.setItem("refreshToken", refreshToken);
         dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
-        dispatch({ type: "SIGNIN", payload: data });
-        dispatch({ type: "PLAYLIST", payload: data.playlists });
-        dispatch({ type: "HISTORY", payload: data.history });
+        dispatch({ type: "SIGNIN", payload: userDetails });
+        dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
+        dispatch({ type: "HISTORY", payload: userDetails.history });
+        dispatch({ type: "SET_ACCESS_TOKEN", payload: accessToken });
         setRedirect(true);
       }
     } catch (error) {

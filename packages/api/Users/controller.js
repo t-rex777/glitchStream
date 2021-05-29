@@ -2,8 +2,9 @@ const User = require("./model");
 const Video = require("../Video/model");
 const { extend, concat, union } = require("lodash");
 const { Mongoose } = require("mongoose");
+const jwt = require("jsonwebtoken")
 
-//fining user by Id
+//finding user by Id
 exports.getUserById = async (req, res, next, userId) => {
   try {
     const user = await User.findById(userId)
@@ -51,6 +52,7 @@ exports.signUp = async (req, res) => {
     await user.save((err, user) => {
       if (err) {
         return res.status(400).json({
+          error: err.message,
           message: "User didn't save",
         });
       }
@@ -68,18 +70,36 @@ exports.signIn = async (req, res) => {
     const user = await req.body;
     const { email, password } = user;
     const userEmail = email;
+
     await User.findOne({ email: userEmail })
       .populate("likedVideos")
       .populate("playlists.videos")
       .populate("history")
       .exec((err, user) => {
-        if (err) {
+        if (err || user === null) {
           return res.status(400).json({
-            // NOTE: check for error
             message: "user does not exists!",
           });
+        } else if (!user.authenticate(password)) {
+          return res.status(401).json({
+            message: "please enter the correct password!",
+          });
         }
-        res.json(user);
+        const accessToken = jwt.sign(
+          { userId: user._id },
+          process.env.ACCESS_TOKEN_SECRET,
+          {
+            expiresIn: "15m",
+          }
+        );
+        const refreshToken = jwt.sign(
+          { userId: user._id },
+          process.env.REFRESH_TOKEN_SECRET,
+          {
+            expiresIn: "7d",
+          }
+        );
+        res.json({ user, accessToken, refreshToken });
       });
   } catch (error) {
     res.status(400).json({
@@ -217,7 +237,7 @@ exports.updateUserHistory = async (req, res) => {
     });
     // }
     // console.log(finalArray, "before");
-    finalArray = union([videoId],finalArray);
+    finalArray = union([videoId], finalArray);
     // console.log(finalArray, "after");
     user.history = finalArray;
 
