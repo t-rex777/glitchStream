@@ -43,10 +43,10 @@ function VideoPage() {
       if (user) {
         console.log("user is there");
         // const data =
-        await setHistory(user._id, videoId);
+        await setHistory( videoId);
         try {
           console.log("history");
-          const userDetails = await getUserDetails(user._id);
+          const userDetails = await getUserDetails();
           await dispatch({ type: "SIGNIN", payload: userDetails });
           await dispatch({ type: "HISTORY", payload: userDetails.history });
         } catch (error) {
@@ -77,14 +77,14 @@ function VideoPage() {
             }
           });
           const data = await updateLikedVideos(
-            user._id,
+            
             JSON.stringify({ likedVideos: finalVideoIds })
           );
           try {
             if (data !== undefined) {
               dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
               setIconColor({ ...iconColor, like: { color: "#fff" } });
-              const userDetails = await getUserDetails(user._id);
+              const userDetails = await getUserDetails();
               dispatch({ type: "SIGNIN", payload: userDetails });
             }
           } catch (error) {
@@ -93,12 +93,13 @@ function VideoPage() {
         })();
         return;
       }
-      const data2 = await setLikeVideo(user._id, videoId);
+      const data2 = await setLikeVideo(videoId);
+      console.log(data2)
       try {
         if (data2 !== undefined) {
           dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
           setIconColor({ ...iconColor, like: { color: "red" } });
-          const userDetails = await getUserDetails(user._id);
+          const userDetails = await getUserDetails();
           dispatch({ type: "SIGNIN", payload: userDetails });
         }
       } catch (error) {
@@ -123,12 +124,13 @@ function VideoPage() {
       var obj = {
         suscriptions: video.uploadedBy,
       };
-      const data = await setSuscription(user._id, obj);
+      const data = await setSuscription(obj);
+      
       try {
         if (data !== undefined) {
           dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
           setIsSuscbribed(true);
-          const userDetails = await getUserDetails(user._id);
+          const userDetails = await getUserDetails();
           dispatch({ type: "SIGNIN", payload: userDetails });
         }
       } catch (error) {

@@ -4,6 +4,7 @@ import "./user.css";
 import { signInUser } from "./helper";
 import { useVideo } from "../../video-context/VideoContext";
 import { Redirect } from "react-router-dom";
+import { setGlitchHeader } from "../../utils";
 
 function SignIn() {
   const { dispatch } = useVideo();
@@ -30,12 +31,13 @@ function SignIn() {
     try {
       if (data !== undefined) {
         const { user: userDetails, accessToken, refreshToken } = data;
-        localStorage.setItem("refreshToken", refreshToken);
+        console.log(data);
+        localStorage.setItem("__rtoken", refreshToken);
+        setGlitchHeader(accessToken);
         dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
         dispatch({ type: "SIGNIN", payload: userDetails });
         dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
         dispatch({ type: "HISTORY", payload: userDetails.history });
-        dispatch({ type: "SET_ACCESS_TOKEN", payload: accessToken });
         setRedirect(true);
       }
     } catch (error) {

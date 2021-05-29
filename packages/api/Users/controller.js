@@ -1,43 +1,39 @@
 const User = require("./model");
-const Video = require("../Video/model");
 const { extend, concat, union } = require("lodash");
-const { Mongoose } = require("mongoose");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
-//finding user by Id
-exports.getUserById = async (req, res, next, userId) => {
+// authorization
+exports.authorizeToken = async (req, res, next) => {
+  if (
+    !req.headers["authorization"] &&
+    typeof req.headers["authorization"] !== "string"
+  ) {
+    return res.status(401).json({
+      message: "No tokens found",
+    });
+  }
+
   try {
-    const user = await User.findById(userId)
-      .populate("likedVideos")
-      .populate("playlists.videos")
-      .populate("history");
-    req.user = user;
-    next();
+    const accessToken = req.headers["authorization"].split(" ")[1];
+    const { userId } = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    req.userId = userId;
+    return next();
   } catch (error) {
-    res.status(400).json({
-      message: error.message,
+    res.status(401).json({
+      message: "token cannot be verified! please check it again.",
     });
   }
 };
 
 //Read
-exports.getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find({})
-      .populate("likedVideos")
-      .populate("playlists.videos")
-      .populate("history");
-    res.send(users);
-  } catch (error) {
-    res.status(400).json({
-      message: error.message,
-    });
-  }
-};
 
 exports.getUser = async (req, res) => {
   try {
-    await res.send(req.user);
+    const user = await User.findById(req.userId)
+      .populate("history")
+      .populate("playlists.videos")
+      .populate("likedVideos");
+    res.send(user);
   } catch (error) {
     res.status(400).json({
       message: error.message,
@@ -108,11 +104,49 @@ exports.signIn = async (req, res) => {
   }
 };
 
+exports.createAccessToken = (req, res) => {
+  if (
+    !req.headers["refresh-token"] &&
+    typeof req.headers["refresh-token"] !== "string"
+  ) {
+    return res.status(401).json({
+      message: "No refresh tokens found",
+    });
+  }
+
+  try {
+    const oldRefreshToken = req.headers["refresh-token"].split(" ")[1];
+    const { userId } = jwt.verify(
+      oldRefreshToken,
+      process.env.REFRESH_TOKEN_SECRET
+    );
+    const refreshToken = jwt.sign(
+      { userId: userId },
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+    const accessToken = jwt.sign(
+      { userId: userId },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: "15m",
+      }
+    );
+    res.json({ accessToken, refreshToken });
+  } catch (error) {
+    res.status(401).json({
+      message: "refresh token cannot be verified! please check it again.",
+    });
+  }
+};
+
 //Update
 exports.updateUser = async (req, res) => {
   try {
     let updatedUser = req.body;
-    const { user } = req;
+    let user = await User.findById(req.userId);
     updatedUser = await extend(user, updatedUser);
     updatedUser.save((err, updatedUser) => {
       if (err) {
@@ -132,7 +166,7 @@ exports.updateUser = async (req, res) => {
 exports.updateUserPlaylist = async (req, res) => {
   try {
     const newPlaylist = req.body;
-    let { user } = req;
+    let user = await User.findById(req.userId);
     let isSameName = false;
     user.playlists.forEach((playlist) => {
       if (playlist.name === newPlaylist.name) {
@@ -181,8 +215,7 @@ exports.updateUserPlaylist = async (req, res) => {
 exports.updateUserSuscription = async (req, res) => {
   try {
     const { suscriptions } = req.body;
-    let { user } = req;
-    console.log(suscriptions);
+    let user = await User.findById(req.userId);
     user = extend(user, {
       suscriptions: concat(suscriptions, user.suscriptions),
     });
@@ -204,7 +237,7 @@ exports.updateUserSuscription = async (req, res) => {
 exports.updateUserLikedVideos = async (req, res) => {
   try {
     const { videoId } = req.params;
-    let { user } = req;
+    let user = await User.findById(req.userId);
     user = extend(user, {
       likedVideos: concat(videoId, user.likedVideos),
     });
@@ -226,7 +259,7 @@ exports.updateUserLikedVideos = async (req, res) => {
 exports.updateUserHistory = async (req, res) => {
   try {
     const { videoId } = req.params;
-    let { user } = req;
+    let user = await User.findById(req.userId);
     let finalArray = [];
 
     // if (user.history.find((element) => element == videoId)) {
@@ -257,9 +290,9 @@ exports.updateUserHistory = async (req, res) => {
 };
 
 // Delete
-exports.deleteUser = (req, res) => {
+exports.deleteUser = async (req, res) => {
   try {
-    const { user } = req;
+    let user = await User.findById(req.userId);
     user.deleteOne((err, user) => {
       if (err) {
         return res.status(400).json({
@@ -276,7 +309,7 @@ exports.deleteUser = (req, res) => {
 
 exports.removeUserPlaylist = async (req, res) => {
   try {
-    const { user } = req;
+    let user = await User.findById(req.userId);
     const { playlistId } = req.params;
     const playlist = req.body;
     let newPlaylist = [];

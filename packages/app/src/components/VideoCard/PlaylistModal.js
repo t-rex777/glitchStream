@@ -28,14 +28,14 @@ function PlaylistModal({ videoId }) {
       name: e.target.value,
       videos: videoId,
     };
-    const data = await setPlaylist(state.user._id, obj);
+    const data = await setPlaylist(obj);
     try {
       dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
       if (data !== undefined) {
         dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
 
         setNewPlaylist([]);
-        const userDetails = await getUserDetails(state.user._id);
+        const userDetails = await getUserDetails();
         await dispatch({ type: "SIGNIN", payload: userDetails });
         await dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
         await dispatch({
@@ -75,12 +75,12 @@ function PlaylistModal({ videoId }) {
       name: inputText,
       videos: videoId,
     };
-    const data = await setPlaylist(state.user._id, obj);
+    const data = await setPlaylist(obj);
     try {
       if (data !== undefined) {
         dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
         setNewPlaylist([]);
-        const userDetails = await getUserDetails(state.user._id);
+        const userDetails = await getUserDetails(state);
         await dispatch({ type: "SIGNIN", payload: userDetails });
         await dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
         await dispatch({

@@ -12,25 +12,34 @@ const {
   updateUserSuscription,
   updateUserPlaylist,
   removeUserPlaylist,
+  authorizeToken,
+  createAccessToken,
 } = require("./controller");
 const router = express.Router();
 
 // middleware
-router.param("userId", getUserById);
+// router.param("userId", getUserById);
 // router.param("videoId");
 
 // routes
-router.get("/users", getAllUsers);
-router.post("/signup", signUp);
-router.post("/signIn", signIn);
+router
+  .get("/token/access", createAccessToken)
+  .post("/signup", signUp)
+  .post("/signIn", signIn);
+router
+  .use(authorizeToken)
+  .route("/user")
+  .get(getUser)
+  .post(updateUser)
+  .delete(deleteUser);
 
-router.route("/user/:userId").get(getUser).post(updateUser).delete(deleteUser);
-
-// router.get("/user/:userId/likedvideos/",getAllLikedVideos);
-router.post("/user/:userId/likedvideo/:videoId", updateUserLikedVideos);
-router.post("/user/:userId/suscription", updateUserSuscription);
-router.post("/user/:userId/history/:videoId", updateUserHistory);
-router.post("/user/:userId/playlist", updateUserPlaylist);
-router.post("/user/:userId/removeplaylist/:playlistId", removeUserPlaylist);
+// router.get("/user/likedvideos/",getAllLikedVideos);
+router
+  .use(authorizeToken)
+  .post("/user/likedvideo/:videoId", updateUserLikedVideos)
+  .post("/user/suscription", updateUserSuscription)
+  .post("/user/history/:videoId", updateUserHistory)
+  .post("/user/playlist", updateUserPlaylist)
+  .post("/user/removeplaylist/:playlistId", removeUserPlaylist);
 
 module.exports = router;

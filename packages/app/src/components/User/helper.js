@@ -1,25 +1,37 @@
-import { API } from "./../../API";
+import { GlitchApi } from "./../../utils";
 
-export const getUserDetails = async (userId) => {
+export const getUserDetails = async () => {
   try {
-    const res = await fetch(`${API}/user/${userId}`);
-    return res.json();
+    const response = await GlitchApi.get("/user");
+    return response.data;
+    // const res = await fetch(`${API}/user`, {
+    //   method: "post",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer`,
+    //   },
+    // });
+    // return res.json();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateLikedVideos = async (userId, userDetails) => {
+export const updateLikedVideos = async (userDetails) => {
   try {
-    const res = await fetch(`${API}/user/${userId}`, {
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: userDetails,
+    const response = await GlitchApi.post("/user", {
+      ...userDetails,
     });
-    return res.json();
+    // const res = await fetch(`${API}/user`, {
+    //   method: "post",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: userDetails,
+    // });
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -27,107 +39,136 @@ export const updateLikedVideos = async (userId, userDetails) => {
 
 export const signInUser = async (user) => {
   try {
-    const res = await fetch(`${API}/signin`, {
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
+    const response = await GlitchApi.post("/signin", {
+      ...user,
     });
-    return res.json()
+    return response.data;
+    // const res = await fetch(`${API}/signin`, {
+    //   method: "post",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(user),
+    // });
+    // return res.json();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getLikedVideos = async () => {
+// export const getLikedVideos = async () => {
+//   try {
+//     const response = await GlitchApi.get("/likedVideos");
+//     return response.data;
+//     // const res = await fetch(`${API}/likedvideos`);
+//     // return res.json();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// export const getHistory = async () => {
+//   try {
+//     const response = await GlitchApi.get("/history");
+//     return response.data;
+//     // const res = await fetch(`${API}/history`);
+//     // return res.json();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+export const setLikeVideo = async (videoId) => {
   try {
-    const res = await fetch(`${API}/likedvideos`);
-    return res.json();
+    console.log(videoId)
+    console.log(GlitchApi.defaults.headers)
+    // response is not getting back
+    const response = await GlitchApi.post(`/user/likedvideo/${videoId}`);
+    console.log(response.data,"hehe")
+    return response.data;
+
+    // const res = await fetch(`${API}/user/likedvideo/${videoId}`, {
+    //   method: "post",
+    // });
+    // return res.json();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getHistory = async () => {
+export const setPlaylist = async (playlist) => {
   try {
-    const res = await fetch(`${API}/history`);
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const setLikeVideo = async (userId, videoId) => {
-  try {
-    const res = await fetch(`${API}/user/${userId}/likedvideo/${videoId}`, {
-      method: "post",
+    const response = await GlitchApi.post(`/user/playlist`, {
+      ...playlist,
     });
-    return res.json();
-  } catch (error) {
-    console.lof(error);
-  }
-};
-
-export const setPlaylist = async (userId, playlist) => {
-  try {
-    const res = await fetch(`${API}/user/${userId}/playlist`, {
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(playlist),
-    });
-    return res.json();
+    return response.data;
+    // const res = await fetch(`${API}/user/playlist`, {
+    //   method: "post",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(playlist),
+    // });
+    // return res.json();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const removeUserPlaylist = async (userId, playlistId, playlist) => {
+export const removeUserPlaylist = async (playlistId, playlist) => {
   try {
-    const res = await fetch(
-      `${API}/user/${userId}/removeplaylist/${playlistId}`,
+    const response = await GlitchApi.post(
+      `/user/removeplaylist/${playlistId}`,
       {
-        method: "post",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(playlist),
+        ...playlist,
       }
     );
-    return res.json();
+    return response.data;
+    // const res = await fetch(`${API}/user/removeplaylist/${playlistId}`, {
+    //   method: "post",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(playlist),
+    // });
+    // return res.json();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const setHistory = async (userId, videoId) => {
+export const setHistory = async (videoId) => {
   try {
-    console.log("history read");
-    const res = await fetch(`${API}/user/${userId}/history/${videoId}`, {
-      method: "post",
-    });
-    return res.json();
+    const response = await GlitchApi.post(`/user/history/${videoId}`);
+    return response.data;
+    // console.log("history read");
+    // const res = await fetch(`${API}/user/history/${videoId}`, {
+    //   method: "post",
+    // });
+    // return res.json();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const setSuscription = async (userId, suscription) => {
+export const setSuscription = async (suscription) => {
   try {
-    const res = await fetch(`${API}/user/${userId}/suscription`, {
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(suscription),
+    const response = await GlitchApi.post(`/user/suscription`, {
+      ...suscription,
     });
-    return res.json();
+    return response.data;
+    // const res = await fetch(`${API}/user/suscription`, {
+    //   method: "post",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(suscription),
+    // });
+    // return res.json();
   } catch (error) {
     console.log(error);
   }

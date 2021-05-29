@@ -48,8 +48,9 @@ export const VideoContext = ({ children }) => {
 
   // useEffect(()=>{
   //   (async()=>{
-  //     if(localStorage.getItem("refreshToken")){
-  //       const userDetails = await getUserDetails()
+  //     if(localStorage.getItem("__rtoken")){
+  //       const userDetails = await getUserDetails();
+  //       console.log(userDetails);
   //     }
   //   })()
   // },[])

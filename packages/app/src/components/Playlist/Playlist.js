@@ -28,11 +28,11 @@ function Playlist() {
       videos: finalPlaylist,
     };
 
-    const data = await removeUserPlaylist(state.user._id, playlistId, obj);
+    const data = await removeUserPlaylist( playlistId, obj);
     try {
       if (data !== undefined) {
         dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
-        const userDetails = await getUserDetails(state.user._id);
+        const userDetails = await getUserDetails();
         dispatch({ type: "SIGNIN", payload: userDetails });
         dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
         dispatch({
