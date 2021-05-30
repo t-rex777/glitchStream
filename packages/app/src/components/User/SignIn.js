@@ -38,6 +38,7 @@ function SignIn() {
         dispatch({ type: "SIGNIN", payload: userDetails });
         dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
         dispatch({ type: "HISTORY", payload: userDetails.history });
+        dispatch({ type: "LIKED_VIDEOS", payload: userDetails.likedVideos });
         setRedirect(true);
       }
     } catch (error) {

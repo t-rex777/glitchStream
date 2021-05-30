@@ -1,12 +1,11 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { useVideo } from "../../video-context/VideoContext";
 
 const PrivateRoute = (props) => {
-  const { state } = useVideo();
   return (
     <>
-      {state.user !== "" ? (
+      {localStorage.getItem("__rtoken") &&
+      typeof localStorage.getItem("__rtoken") === "string" ? (
         <Route {...props} />
       ) : (
         <Redirect from={props.path} to="/signin" />

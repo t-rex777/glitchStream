@@ -6,18 +6,16 @@ function LikedVideos() {
   const { state } = useVideo();
   const [vid, setVid] = useState([]);
   useEffect(() => {
-    (async () => {
-      await state.user.likedVideos.forEach((vid) =>
+      state.user && state.user.likedVideos.forEach((vid) =>
         setVid((prevVideo) => [...prevVideo, vid])
       );
-    })();
   }, []);
 
   return (
     <Base>
       <h1 style={{ marginTop: "100px" }}>Liked Videos</h1>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {vid.map((vid, i) => {
+        {state.likedVideos.map((vid, i) => {
           return (
             <div className="videoCard" key={i}>
               <Link to={`/video/${vid._id}`}>

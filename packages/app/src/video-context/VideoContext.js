@@ -1,7 +1,9 @@
 import React, { createContext, useReducer, useContext, useEffect } from "react";
+import { setGlitchHeader } from "../utils";
 import { getAllVideos } from "./../components/VideoCard/helper";
-import { getUserDetails } from './../components/User/helper';
-
+import Axios from "axios";
+import { API } from "./../API";
+import { GlitchApi } from "./../utils";
 const videoProvider = createContext();
 
 export const VideoContext = ({ children }) => {
@@ -19,6 +21,8 @@ export const VideoContext = ({ children }) => {
         return { ...state, playlist: action.payload };
       case "HISTORY":
         return { ...state, history: action.payload };
+      case "LIKED_VIDEOS":
+        return { ...state, likedVideos: action.payload };
       case "TOAST":
         return { ...state, toast: action.payload };
       case "HAM":
@@ -39,26 +43,72 @@ export const VideoContext = ({ children }) => {
     video: {},
     playlist: [],
     history: [],
+    likedVideos: [],
     toast: "",
     ham: true,
     toastStyle: { display: "none" },
     loadingStyle: { display: "none" },
-    accessToken: "",
   });
 
-  // useEffect(()=>{
-  //   (async()=>{
-  //     if(localStorage.getItem("__rtoken")){
-  //       const userDetails = await getUserDetails();
-  //       console.log(userDetails);
-  //     }
-  //   })()
-  // },[])
-
   useEffect(() => {
+    dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
     (async () => {
       const videos = await getAllVideos();
       dispatch({ type: "VIDEOS", payload: videos });
+      dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+    })();
+  }, []);
+  useEffect(() => {
+    dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
+    (async () => {
+      const rToken = localStorage.getItem("__rtoken");
+      if (rToken && typeof rToken === "string") {
+        try {
+          const newAccessTokenRequest = await Axios({
+            baseURL: API,
+            method: "GET",
+            url: "/token/access",
+            headers: {
+              "refresh-token": `Bearer ${rToken}`,
+            },
+          });
+
+          const { accessToken, refreshToken } = newAccessTokenRequest.data;
+          console.log(newAccessTokenRequest);
+          localStorage.setItem("__rtoken", refreshToken);
+          setGlitchHeader(accessToken);
+
+          const userDetails = await GlitchApi.get("/user");
+          console.log(userDetails);
+          const user = userDetails.data;
+          // set all the dispatches
+          dispatch({ type: "SIGNIN", payload: user });
+          dispatch({ type: "PLAYLIST", payload: user.playlists });
+          dispatch({ type: "HISTORY", payload: user.history });
+          dispatch({ type: "LIKED_VIDEOS", payload: user.likedVideos });
+          dispatch({ type: "SET_ACCESS_TOKEN", payload: accessToken });
+          dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+        } catch (error) {
+          localStorage.removeItem("__rtoken");
+          console.log(error);
+          // dispatch to logout user
+          dispatch({ type: "SIGNOUT" });
+        }
+
+        setInterval(async () => {
+          const newAccessTokenRequest = await Axios({
+            baseURL: API,
+            method: "GET",
+            url: "/token/access",
+            headers: {
+              "refresh-token": `Bearer ${rToken}`,
+            },
+          });
+          const { accessToken, refreshToken } = newAccessTokenRequest.data;
+          localStorage.setItem("__rtoken", refreshToken);
+          setGlitchHeader(accessToken);
+        }, 840000);
+      }
     })();
   }, []);
   return (

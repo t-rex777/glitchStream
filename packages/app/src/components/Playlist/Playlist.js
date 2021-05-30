@@ -28,7 +28,7 @@ function Playlist() {
       videos: finalPlaylist,
     };
 
-    const data = await removeUserPlaylist( playlistId, obj);
+    const data = await removeUserPlaylist(playlistId, obj);
     try {
       if (data !== undefined) {
         dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
@@ -50,7 +50,7 @@ function Playlist() {
     <Base>
       <div className="playlist content-center">
         <h1 style={{ marginTop: "100px" }}>Playlist</h1>
-        <div className="">
+        <div>
           {state.playlist.map((video) => {
             return (
               <div key={video._id} className="playlist-card mt-4">

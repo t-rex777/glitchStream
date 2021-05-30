@@ -11,6 +11,7 @@ import {
   setSuscription,
   updateLikedVideos,
 } from "./../User/helper";
+
 import Base from "./../Base/Base";
 import PlaylistModal from "./PlaylistModal";
 import ShareModal from "./ShareModal";
@@ -26,24 +27,26 @@ function VideoPage() {
     like: { color: "#fff" },
     dislike: { color: "#fff" },
   });
+
   useEffect(() => {
+    //fetching the video details
     (async () => {
       const video = await getVideoById(videoId);
       dispatch({ type: "VIDEO", payload: video });
     })();
-
+    //checking if the video is already liked or not
     if (user) {
       if (user.likedVideos.find((element) => element._id === `${videoId}`)) {
         setIconColor({ ...iconColor, like: { color: "red" } });
         return;
       }
     }
+
     // adding history
     (async () => {
       if (user) {
         console.log("user is there");
-        // const data =
-        await setHistory( videoId);
+        await setHistory(videoId);
         try {
           console.log("history");
           const userDetails = await getUserDetails();
@@ -58,12 +61,14 @@ function VideoPage() {
     })();
   }, []);
 
+  // checking if the video is already suscribed or not
   useEffect(() => {
-    user &&
-      user.suscriptions.includes(video.uploadedBy) &&
-      setIsSuscbribed(true);
+    user && user.suscriptions.includes(video.uploadedBy)
+      ? setIsSuscbribed(true)
+      : setIsSuscbribed(false);
   }, [video]);
 
+  // liking and disliking the video
   const likeVideo = async () => {
     if (user) {
       dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
@@ -76,10 +81,8 @@ function VideoPage() {
               finalVideoIds.push(video._id);
             }
           });
-          const data = await updateLikedVideos(
-            
-            JSON.stringify({ likedVideos: finalVideoIds })
-          );
+          // dislike
+          const data = await updateLikedVideos({ likedVideos: finalVideoIds });
           try {
             if (data !== undefined) {
               dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
@@ -93,8 +96,9 @@ function VideoPage() {
         })();
         return;
       }
+      // like
       const data2 = await setLikeVideo(videoId);
-      console.log(data2)
+      console.log(data2);
       try {
         if (data2 !== undefined) {
           dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
@@ -110,6 +114,7 @@ function VideoPage() {
     }
   };
 
+  //suscribing the video
   const suscribeVideo = async () => {
     if (user) {
       dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
@@ -125,7 +130,7 @@ function VideoPage() {
         suscriptions: video.uploadedBy,
       };
       const data = await setSuscription(obj);
-      
+
       try {
         if (data !== undefined) {
           dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
