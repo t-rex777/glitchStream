@@ -87,3 +87,14 @@ export const setSuscription = async (suscription) => {
     console.log(error);
   }
 };
+
+export const deleteSuscription = async (suscription) => {
+  try {
+    const response = await GlitchApi.post(`/user/removesuscription`, {
+      ...suscription,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

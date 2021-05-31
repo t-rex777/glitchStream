@@ -14,6 +14,7 @@ const {
   removeUserPlaylist,
   authorizeToken,
   createAccessToken,
+  removeSuscription,
 } = require("./controller");
 const router = express.Router();
 
@@ -40,6 +41,7 @@ router
   .post("/user/suscription", updateUserSuscription)
   .post("/user/history/:videoId", updateUserHistory)
   .post("/user/playlist", updateUserPlaylist)
-  .post("/user/removeplaylist/:playlistId", removeUserPlaylist);
+  .post("/user/removeplaylist/:playlistId", removeUserPlaylist)
+  .post("/user/removesuscription", removeSuscription);
 
 module.exports = router;

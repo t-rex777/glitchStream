@@ -5,6 +5,7 @@ import { getVideoById } from "./helper";
 import { AiFillLike } from "react-icons/ai";
 
 import {
+  deleteSuscription,
   getUserDetails,
   setHistory,
   setLikeVideo,
@@ -89,7 +90,10 @@ function VideoPage() {
               setIconColor({ ...iconColor, like: { color: "#fff" } });
               const userDetails = await getUserDetails();
               dispatch({ type: "SIGNIN", payload: userDetails });
-              dispatch({ type: "LIKED_VIDEOS", payload: userDetails.likedVideos });
+              dispatch({
+                type: "LIKED_VIDEOS",
+                payload: userDetails.likedVideos,
+              });
             }
           } catch (error) {
             console.log(error);
@@ -125,8 +129,25 @@ function VideoPage() {
         user.suscriptions.find((element) => element === `${video.uploadedBy}`)
       ) {
         console.log("already suscribed!");
-        dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
-        return;
+        let finalSuscriptions = [];
+        user.suscriptions.forEach((element) => {
+          if (element !== video.uploadedBy) {
+            finalSuscriptions.unshift(element);
+          }
+        });
+        const data = await deleteSuscription(finalSuscriptions);
+        try {
+          if (data !== undefined) {
+            dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+            setIsSuscbribed(false);
+            const userDetails = await getUserDetails();
+            console.log(userDetails)
+            dispatch({ type: "SIGNIN", payload: userDetails });
+            return ;
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
       var obj = {
         suscriptions: video.uploadedBy,
@@ -188,19 +209,16 @@ function VideoPage() {
             <hr />
             <div className="uploader-info">
               <span className="video-uploader mt-2">
-                <img src={video.avatar} alt="" />
+                <img src={video.avatar} alt="avatar" />
                 <span>
                   <h3>{video.uploadedBy}</h3>
                   <p className="video-desc mt-4">{video.description}</p>
                 </span>
               </span>
-              {isSuscbribed ? (
-                <button className="suscribe-btn">SUSCRIBED</button>
-              ) : (
-                <button className="suscribe-btn" onClick={suscribeVideo}>
-                  SUSCRIBE
-                </button>
-              )}
+
+              <button className="suscribe-btn" onClick={suscribeVideo}>
+                {isSuscbribed ? "SUSCRIBED" : "SUSCRIBE"}{" "}
+              </button>
             </div>
           </>
         ) : (

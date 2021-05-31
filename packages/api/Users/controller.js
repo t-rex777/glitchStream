@@ -151,7 +151,7 @@ exports.updateUser = async (req, res) => {
     updatedUser.save((err, updatedUser) => {
       if (err) {
         return res.status(400).json({
-          message: "User didn't updated",
+          message: "User didn't update",
         });
       }
       res.send(updatedUser);
@@ -183,7 +183,7 @@ exports.updateUserPlaylist = async (req, res) => {
           return user.save((err, updatedUser) => {
             if (err) {
               return res.status(400).json({
-                message: "playlist didn't updated",
+                message: "playlist didn't update",
               });
             }
             res.send(updatedUser);
@@ -199,7 +199,7 @@ exports.updateUserPlaylist = async (req, res) => {
       user.save((err, updatedUser) => {
         if (err) {
           return res.status(400).json({
-            message: "playlist didn't updated",
+            message: "playlist didn't update",
           });
         }
         res.send(updatedUser);
@@ -222,7 +222,7 @@ exports.updateUserSuscription = async (req, res) => {
     user.save((err, updatedUser) => {
       if (err) {
         return res.status(400).json({
-          message: "suscription didn't updated",
+          message: "suscription didn't update",
         });
       }
       res.send(updatedUser);
@@ -244,7 +244,7 @@ exports.updateUserLikedVideos = async (req, res) => {
     user.save((err, updatedUser) => {
       if (err) {
         return res.status(400).json({
-          message: "likedVideos didn't updated",
+          message: "likedVideos didn't update",
         });
       }
       res.send(updatedUser);
@@ -277,7 +277,7 @@ exports.updateUserHistory = async (req, res) => {
     await user.save((err, updatedUser) => {
       if (err) {
         return res.status(400).json({
-          message: "history didn't updated",
+          message: "history didn't update",
         });
       }
       res.send(updatedUser);
@@ -328,7 +328,28 @@ exports.removeUserPlaylist = async (req, res) => {
     await user.save((err, updatedUser) => {
       if (err) {
         return res.status(400).json({
-          message: "likedVideos didn't updated",
+          message: "likedVideos didn't update",
+        });
+      }
+      res.send(updatedUser);
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.removeSuscription = async (req, res) => {
+  try {
+    let user = await User.findById(req.userId);
+    let finalSuscriptions = req.body;
+
+    user.suscriptions = Object.values(finalSuscriptions);
+    user.save((err, updatedUser) => {
+      if (err) {
+        return res.status(400).json({
+          message: "suscriptions didn't update",
         });
       }
       res.send(updatedUser);

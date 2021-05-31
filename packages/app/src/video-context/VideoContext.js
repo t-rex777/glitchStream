@@ -74,12 +74,9 @@ export const VideoContext = ({ children }) => {
           });
 
           const { accessToken, refreshToken } = newAccessTokenRequest.data;
-          console.log(newAccessTokenRequest);
           localStorage.setItem("__rtoken", refreshToken);
           setGlitchHeader(accessToken);
-
           const userDetails = await GlitchApi.get("/user");
-          console.log(userDetails);
           const user = userDetails.data;
           // set all the dispatches
           dispatch({ type: "SIGNIN", payload: user });
