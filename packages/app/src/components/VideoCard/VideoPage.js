@@ -89,6 +89,7 @@ function VideoPage() {
               setIconColor({ ...iconColor, like: { color: "#fff" } });
               const userDetails = await getUserDetails();
               dispatch({ type: "SIGNIN", payload: userDetails });
+              dispatch({ type: "LIKED_VIDEOS", payload: userDetails.likedVideos });
             }
           } catch (error) {
             console.log(error);
@@ -105,6 +106,7 @@ function VideoPage() {
           setIconColor({ ...iconColor, like: { color: "red" } });
           const userDetails = await getUserDetails();
           dispatch({ type: "SIGNIN", payload: userDetails });
+          dispatch({ type: "LIKED_VIDEOS", payload: userDetails.likedVideos });
         }
       } catch (error) {
         console.log(error);

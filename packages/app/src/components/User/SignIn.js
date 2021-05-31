@@ -47,37 +47,39 @@ function SignIn() {
   };
   return (
     <Base>
-      {redirect && <Redirect to="/" />}
-      <form className="form">
-        <h1 className="mb-4">Sign In</h1>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          value={user.email}
-          onChange={handleChange}
-          className="form-item mb-2"
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={user.password}
-          onChange={handleChange}
-          className="form-item mb-4"
-        />
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className="btn btn-success text-s"
-        >
-          Sign In
-        </button>
-        <p>{user.email}</p>
-        <p>{user.password}</p>
-      </form>
+      <div className="content-center">
+        {redirect && <Redirect to="/" />}
+        <form className="form">
+          <h1 className="mb-4">Sign In</h1>
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            value={user.email}
+            onChange={handleChange}
+            className="form-item mb-2"
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={user.password}
+            onChange={handleChange}
+            className="form-item mb-4"
+          />
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className="btn btn-success text-s"
+          >
+            Sign In
+          </button>
+          <p>{user.email}</p>
+          <p>{user.password}</p>
+        </form>
+      </div>
     </Base>
   );
 }
