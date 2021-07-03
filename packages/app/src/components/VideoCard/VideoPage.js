@@ -141,9 +141,9 @@ function VideoPage() {
             dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
             setIsSuscbribed(false);
             const userDetails = await getUserDetails();
-            console.log(userDetails)
+            console.log(userDetails);
             dispatch({ type: "SIGNIN", payload: userDetails });
-            return ;
+            return;
           }
         } catch (error) {
           console.log(error);
@@ -178,9 +178,10 @@ function VideoPage() {
             <div style={{ paddingBottom: "56.25%", position: "relative" }}>
               <iframe
                 className="embed-video"
-                src={videoSrc + video.videoId}
+                src={videoSrc + video.videoId + "?autoplay=1"}
                 title="valorant"
                 allowFullScreen
+                allow="autoplay"
               />
             </div>
 

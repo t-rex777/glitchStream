@@ -46,8 +46,9 @@ exports.createVideo = async (req, res) => {
           "Valorant aggresive gameplay in competitive match against diamond players",
         uploadedBy: "STUNZ",
         videoId: "wSLoJWVjQzs",
+        category: "Valorant",
         thumbnail:
-          "https://i.ytimg.com/an_webp/wSLoJWVjQzs/mqdefault_6s.webp?du=3000&sqp=COjTs4QG&rs=AOn4CLBEcuofQxKf7IYrcqqp-1N8kl8Q3g",
+          "https://media.wired.com/photos/5ea0840cb0490300086261e3/master/pass/Cul-Reveal_ReactorA_VALORANT.jpg",
         avatar:
           "https://yt3.ggpht.com/ytc/AAUvwnjbopSnoFrzBbO9ASM7wxSaYukJJGmaXfvmo-0cRg=s176-c-k-c0x00ffffff-no-rj",
       },
@@ -57,8 +58,9 @@ exports.createVideo = async (req, res) => {
           "Episode 2 Act III brings clear skies and sightlines. Reach for Radiant horizons on our new map Breeze, collect exclusive content in the latest Battlepass, and more.",
         uploadedBy: "VALORANT",
         videoId: "aLYnq0eA89w",
+        category: "Valorant",
         thumbnail:
-          "https://i.ytimg.com/an_webp/aLYnq0eA89w/mqdefault_6s.webp?du=3000&sqp=CIzks4QG&rs=AOn4CLARZy1DyItQaonYH1nqFooCeHRwBQ",
+          "https://playvalorant.com/assets/video/game-overview-poster-launch.jpg",
         avatar:
           "https://yt3.ggpht.com/ytc/AAUvwnh5cX3Hpigfm2Y3X1VAd1QrVBWgzFeaIM8RAuTu=s88-c-k-c0x00ffffff-no-rj",
       },
@@ -68,8 +70,9 @@ exports.createVideo = async (req, res) => {
           "I did my homework, now its your turn to like, suscribe and share this video guys!",
         uploadedBy: "Unidaro",
         videoId: "fvLCdpGR8ic",
+        category: "Valorant",
         thumbnail:
-          "https://i.ytimg.com/an_webp/fvLCdpGR8ic/mqdefault_6s.webp?du=3000&sqp=CPvis4QG&rs=AOn4CLDn08LbY8ZLICqkvVGAg57oyA1pjA",
+          "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt86cd8572a30911aa/60cbfdb00ece0255888d895a/V_Ep_03_REFLECTION_Article-Header.jpg?auto=webp&disable=upscale&height=549",
         avatar:
           "https://yt3.ggpht.com/ytc/AAUvwngb45MjR1qX3QJMDVWwrXnBPpkV5CYLHsEWxST67g=s88-c-k-c0x00ffffff-no-rj",
       },
@@ -79,8 +82,9 @@ exports.createVideo = async (req, res) => {
           "Tenz is one of the best players in valorant with rank Radiant.Mostly he plays Jett and Omen.",
         uploadedBy: "Valolo",
         videoId: "zdgxB_4SCNg",
+        category: "Valorant",
         thumbnail:
-          "https://i.ytimg.com/an_webp/zdgxB_4SCNg/mqdefault_6s.webp?du=3000&sqp=CJj0s4QG&rs=AOn4CLBvk4sRLi9Zfx8d_vfqcH8oEpcxcw",
+          "https://www.riotgames.com/darkroom/1440/d0807e131a84f2e42c7a303bda672789:3d02afa7e0bfb75f645d97467765b24c/valorant-offwhitelaunch-keyart.jpg",
         avatar:
           "https://yt3.ggpht.com/ytc/AAUvwnhycAl0tK_uTldmMQmmPNr_rchmr3p8ioSE-1Cv=s88-c-k-c0x00ffffff-no-rj",
       },
@@ -90,8 +94,9 @@ exports.createVideo = async (req, res) => {
           "Football games that shocked the world! Barcelona, Bayern Munich, PSG, Liverpool, Brazil, Germany and more in video!",
         uploadedBy: "TKHD",
         videoId: "xSsiS304iY8",
+        category: "Football",
         thumbnail:
-          "https://i.ytimg.com/an_webp/xSsiS304iY8/mqdefault_6s.webp?du=3000&sqp=CPz6s4QG&rs=AOn4CLBmX-tImWLvJrpTeaXR-PLi4V10ZA",
+          "https://www.vbetnews.com/wp-content/uploads/2019/12/0_FBL-LIGA-ESP-REAL-MADRID-BARCELONA-1200x900.jpg",
         avatar:
           "https://yt3.ggpht.com/ytc/AAUvwni9Kb70j90xSwFzQtbjlq4vR4ZC0HB61Wd71sIDiA=s88-c-k-c0x00ffffff-no-rj",
       },
@@ -101,16 +106,91 @@ exports.createVideo = async (req, res) => {
         description:
           "Amazing Skills & Goals by The Best Players! A compilation of best moments of in 2020-2021",
         uploadedBy: "Lorenzo F7",
+        category: "Football",
         videoId: "mhp_rF6VRUY",
         thumbnail:
-          "https://i.ytimg.com/an_webp/mhp_rF6VRUY/mqdefault_6s.webp?du=3000&sqp=CIiEtIQG&rs=AOn4CLAR0H0SaFYQg7zDfzkhvUwaVAZtLg",
+          "https://cdn.bleacherreport.net/images_root/slides/photos/000/124/316/57604885.jpg.13723.0_original.jpg?1260480300",
         avatar:
           "https://yt3.ggpht.com/ytc/AAUvwngLOvyLcHFZdfmT7LoNg_GiAS_vqSp8yKLPXGM8rw=s88-c-k-c0x00ffffff-no-rj",
       },
-    ]).then(data=>res.json({
-      message : "videos added successfully!",
-      data
-    }));
+      {
+        name: "Hungary 0-3 Portugal | Match 11 | Highlights | UEFA Euro 2020 | 15th June, 2021",
+        description:
+          "A late Portugal push spearheaded the mercurial Cristiano Ronaldo saw them defeat hosts Hungary 0-3 at the Puskás Aréna. It was with Raphaël Guerreiro 84th-minute goal that the floodgates opened and allowed Ronaldo to get his name on the scoresheet. He scored a penalty to make it 0-2 in the 87th minute before scoring an excellent team goal in the 92nd minute. ",
+        uploadedBy: "SonyLIV",
+        category: "Football",
+        videoId: "Y6jSmKU5OeQ",
+        thumbnail:
+          "https://images.moneycontrol.com/static-mcnews/2021/06/AP21166648130451-653x435.jpg",
+        avatar:
+          "https://yt3.ggpht.com/ytc/AKedOLQ-qSLciDHjc-nIeLYLG7pn4t8N9LrilNRN88eRDg=s48-c-k-c0x00ffffff-no-rj",
+      },
+      {
+        name: "Lionel Messi - Top 20 Goals of The GOAT - HD",
+        description:
+          "Fad3nHD Production. The best Lionel Messi goals - great solo goals, runs, free kicks, long range goals and chips. Music: Machinimasound - Battle of Kings Extended",
+        uploadedBy: "Fad3nHD",
+        category: "Football",
+        videoId: "PSanJ5swYBM",
+        thumbnail:
+          "https://assets.telegraphindia.com/telegraph/2021/May/1621286871_945b04f8-c9be-4512-b966-f0261d648432.gif",
+        avatar:
+          "https://yt3.ggpht.com/ytc/AKedOLSeqRm68FouCf3HphWifYffA-RS95HKVLT6APD8=s48-c-k-c0x00ffffff-no-rj",
+      },
+      {
+        name: "Shroud’s Triumphant Return to CS:GO | Counter-Strike: Global Offensive | Shroud",
+        description:
+          "This is like when the dad finallly returns after buying milk for 23 years",
+        uploadedBy: "Shroud",
+        category: "CSGO",
+        videoId: "02Wh2gO4Q58",
+        thumbnail:
+          "https://www.elecspo.com/static/uploads/13/2018/10/playcsgoformoney-1440x810.jpg",
+        avatar:
+          "https://yt3.ggpht.com/ytc/AKedOLQVPJGz7OrblaKq8e8jSq9g9_IR4C56YpXp4hto7Q=s48-c-k-c0x00ffffff-no-rj",
+      },
+      {
+        name: "Smartest PRO CS:GO Plays 2021 (So far)",
+        description:
+          " Frags by: Aerial , boltz , broky , kyojin , doto , elige , FL1T , gratisfaction , hobbit , k0nfig , Malta , motm , nafany , nickelback , qikert , rain , rez , ropz , s1mple , shakezulla , snax , sonic , stanislaw",
+        uploadedBy: "Shroud",
+        category: "Virre CSGO",
+        videoId: "VJQ0f_12Zek",
+        thumbnail:
+          "https://www.gameophobic.com/wp-content/uploads/2018/11/MediaHandler.jpg",
+        avatar:
+          "https://yt3.ggpht.com/ytc/AKedOLRMeR1hY4RHLKW6LCCYCfIjRvLvzoXMg0ZX-l0cyw=s48-c-k-c0x00ffffff-no-rj",
+      },
+      {
+        name: "Halo Infinite | Campaign Gameplay Premiere – 8 Minute Demo",
+        description:
+          "In Halo Infinite's campaign, the Master Chief returns when humanity's fate hangs in the balance to confront the most ruthless foe he's ever faced – the Banished.",
+        uploadedBy: "HALO",
+        category: "HALO",
+        videoId: "HZtc5-syeAk",
+        thumbnail:
+          "https://sm.ign.com/ign_in/news/h/halo-infin/halo-infinite-will-support-cross-play-and-cross-progression_1djx.jpg",
+        avatar:
+          "https://yt3.ggpht.com/ytc/AKedOLQq8edfZB_ohhtEwujMyGUy5uY2CZUPd6qiwXT5eA=s48-c-k-c0x00ffffff-no-rj",
+      },
+      {
+        name: "Halo Infinite - Game Overview Trailer | E3 2021",
+        description:
+          "See new cinematics and gameplay for Halo Infinite  in this developer commentary trailer, revealed at the Xbox & Bethesda Games Showcase E3 2021. ",
+        uploadedBy: "IGN",
+        category: "HALO",
+        videoId: "wDZ-9B6hX5A",
+        thumbnail:
+          "https://i.gadgets360cdn.com/large/HaloInfinite_XGS_Inline1_1595521834185.jpeg",
+        avatar:
+          "https://yt3.ggpht.com/JWYn6LAwVbg1BK5SYrvJljq6vWGMzvNfmChHEW_Xw60f6OdJ23GsLld7MFH6ZkgOPk98lAeo=s48-c-k-c0x00ffffff-no-rj",
+      },
+    ]).then((data) =>
+      res.json({
+        message: "videos added successfully!",
+        data,
+      })
+    );
   } catch (err) {
     res.status(400).json({
       message: err.message,
@@ -126,7 +206,7 @@ exports.updateVideo = async (req, res) => {
     updatedVideo = extend(video, updatedVideo);
     await updatedVideo.save((err, vid) => {
       if (err) {
-       return res.status(400).json({
+        return res.status(400).json({
           message: "Error in updating video",
         });
       }
@@ -145,7 +225,7 @@ exports.deleteVideo = (req, res) => {
     const deleteVideo = req.video;
     deleteVideo.deleteOne((err, vid) => {
       if (err) {
-       return res.status(400).json({
+        return res.status(400).json({
           message: "Error in deleteing video",
         });
       }

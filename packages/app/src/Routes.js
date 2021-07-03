@@ -7,6 +7,7 @@ import PrivateRoute from './components/User/PrivateRoute';
 import History from './components/History/History';
 import LikedVideos from './components/LikedVideos/LikedVideos';
 import Playlist from "./components/Playlist/Playlist";
+import SignUp from './components/User/SignUp';
 
 function Routes() {
   return (
@@ -15,6 +16,7 @@ function Routes() {
         <Route path="/" exact component={App} />
         <Route path="/video/:videoId" exact component={VideoPage} />
         <Route path="/signin" exact component={SignIn} />
+        <Route path="/signup" exact component={SignUp} />
         <PrivateRoute path="/history" exact component={History} />
         <PrivateRoute path="/likedvideos" exact component={LikedVideos} />
         <PrivateRoute path="/playlist" exact component={Playlist} />

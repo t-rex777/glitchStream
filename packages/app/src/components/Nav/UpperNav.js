@@ -72,6 +72,7 @@ function UpperNav() {
                 <AiOutlineLogin />
               </span>
               <span
+              style={{cursor:"pointer"}}
                 className="full-view"
                 onClick={() => {
                   dispatch({ type: "SIGNOUT" });

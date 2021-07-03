@@ -7,7 +7,7 @@ function Toast() {
     setTimeout(() => {
       dispatch({ type: "TOAST_STYLE", payload: { display: "none" } });
     }, 3000);
-  }, []);
+  }, [dispatch]);
   return (
     <div className="toast success" style={state.toastStyle}>
       <p className="toast-message ">{state.toast}</p>

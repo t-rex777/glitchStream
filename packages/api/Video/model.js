@@ -10,13 +10,13 @@ const videoSchema = mongoose.Schema(
     description: {
       type: String,
       required: true,
-      maxlength: 200,
+      maxlength: 400,
     },
-    // category: {
-    //   type: ObjectId,
-    //   ref: "Category",
-    //   required: true,
-    // },
+    category: {
+      type: String,
+      required: true,
+      maxlength: 20,
+    },
     uploadedBy: {
       type: String,
       required: true,

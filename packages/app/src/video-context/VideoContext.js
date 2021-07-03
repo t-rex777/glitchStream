@@ -12,6 +12,7 @@ export const VideoContext = ({ children }) => {
       case "SIGNIN":
         return { ...state, user: action.payload };
       case "SIGNOUT":
+        localStorage.removeItem("__rtoken");
         return { ...state, user: "" };
       case "VIDEOS":
         return { ...state, videos: action.payload };

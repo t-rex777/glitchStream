@@ -31,6 +31,18 @@ export const signInUser = async (user) => {
   }
 };
 
+
+export const signUpUser = async (user) => {
+  try {
+    const response = await GlitchApi.post("/signin", {
+      ...user,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const setLikeVideo = async (videoId) => {
   try {
     console.log(videoId);

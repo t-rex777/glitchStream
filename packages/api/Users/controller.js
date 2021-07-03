@@ -33,7 +33,7 @@ exports.getUser = async (req, res) => {
       .populate("history")
       .populate("playlists.videos")
       .populate("likedVideos");
-    res.send(user);
+   return res.send(user);
   } catch (error) {
     res.status(400).json({
       message: error.message,

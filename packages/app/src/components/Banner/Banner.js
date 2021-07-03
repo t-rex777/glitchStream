@@ -9,10 +9,7 @@ function Banner() {
       <p className="banner_desc">
         GlitchStream is an online sports and e-sports video library
       </p>
-      {/* <Link to={`video/${random}`}>
-        <button className="banner_button">watch now</button>
-      </Link> */}
-      {/* <div className="banner_lower"></div> */}
+     
     </div>
   );
 }

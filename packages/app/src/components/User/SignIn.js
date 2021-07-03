@@ -3,14 +3,14 @@ import Base from "./../Base/Base";
 import "./user.css";
 import { signInUser } from "./helper";
 import { useVideo } from "../../video-context/VideoContext";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { setGlitchHeader } from "../../utils";
 
 function SignIn() {
   const { dispatch } = useVideo();
   const [user, setUser] = useState({
-    email: "admin@gmail.com",
-    password: "admin",
+    email: "",
+    password: "",
   });
   const [redirect, setRedirect] = useState(false);
   const handleChange = (e) => {
@@ -27,20 +27,32 @@ function SignIn() {
     e.preventDefault();
     dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
     const data = await signInUser(user);
-
     try {
-      if (data !== undefined) {
-        const { user: userDetails, accessToken, refreshToken } = data;
-        console.log(data);
-        localStorage.setItem("__rtoken", refreshToken);
-        setGlitchHeader(accessToken);
+      if (data === undefined) {
         dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
-        dispatch({ type: "SIGNIN", payload: userDetails });
-        dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
-        dispatch({ type: "HISTORY", payload: userDetails.history });
-        dispatch({ type: "LIKED_VIDEOS", payload: userDetails.likedVideos });
-        setRedirect(true);
+        dispatch({
+          type: "TOAST",
+          payload: `Wrong credentials`,
+        });
+        dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
+        return;
       }
+      const { user: userDetails, accessToken, refreshToken } = data;
+      localStorage.setItem("__rtoken", refreshToken);
+      setGlitchHeader(accessToken);
+      dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+      dispatch({ type: "SIGNIN", payload: userDetails });
+      dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
+      dispatch({ type: "HISTORY", payload: userDetails.history });
+      dispatch({ type: "LIKED_VIDEOS", payload: userDetails.likedVideos });
+
+      dispatch({
+        type: "TOAST",
+        payload: `Logged In`,
+      });
+      dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
+
+      setRedirect(true);
     } catch (error) {
       console.log(error);
     }
@@ -76,9 +88,13 @@ function SignIn() {
           >
             Sign In
           </button>
-          <p>{user.email}</p>
-          <p>{user.password}</p>
         </form>
+        <p className="mt-2">
+          Don't have an account?{" "}
+          <Link className="text-success" to="/signup">
+            Sign up
+          </Link>
+        </p>
       </div>
     </Base>
   );
