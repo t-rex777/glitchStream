@@ -1,32 +1,27 @@
-.children{
-    grid-area: children;
-}
 .upperNav{
-  grid-area: upperNav;
-  z-index: 1;
-}
-.sideNav{
-  grid-area: sideNav;
- 
-}
-.suggestedVideos{
-  grid-area: suggestedVideos;
-  width: fit-content;
-  margin-top: 57px;
-  z-index: 0;
-  width: 100%;
+  position: fixed;
+  top:0;
+  z-index: 5;
 }
 
-.base {
-  display: grid;
-  grid-template-areas:
-    "upperNav upperNav upperNav"
-    "sideNav children children"
-    "sideNav children children";
+.sideNav{
+  position: fixed;
+  left: 0;
+  top: 90px;
+  z-index: 5;
+}
+
+.children{
+  margin-left: 90px;
+  margin-top: 90px;
 }
 
 @media screen and (max-width:768px){
   .sideNav{
-    margin-top: 49px;
+    margin-top: -20px;
+  }
+  .children{
+    margin-top: 70px;
+    margin-left: 0;
   }
 }

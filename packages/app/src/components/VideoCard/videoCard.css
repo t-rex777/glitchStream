@@ -25,7 +25,7 @@
 }
 
 .video-container {
-  margin-top: 100px;
+  padding: 2rem;
 }
 .video-uploader {
   display: flex;
@@ -122,6 +122,9 @@ hr {
   }
   .suscribe-btn {
     margin-top: 2rem;
+  }
+  .video-interactions {
+    margin-right: 0rem;
   }
 }
 

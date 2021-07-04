@@ -172,7 +172,6 @@ function VideoPage() {
 
   return (
     <Base>
-      {redirect && <Redirect to="/signin" />}
       <div className="video-container">
         {video ? (
           <>

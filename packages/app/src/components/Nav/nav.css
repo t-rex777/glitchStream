@@ -1,6 +1,6 @@
 /* UPPERNAV */
 .nav {
-  background-color: rgba(0, 0, 0, 0.712);
+  background-color: rgba(0, 0, 0, 1);
   margin-bottom: -100px;
   position: fixed;
   width: 100vw;
@@ -37,48 +37,31 @@
 
 .stream-icon {
   position: relative;
- width: 50%;
- height: 50%;
+  width: 50%;
+  height: 50%;
   top: 7px;
   left: 5px;
 }
-.nav-search {
-  width: 300px;
-  background-color: #000;
-  border: solid 1px #000;
-  color: #fff;
-  padding: 5px 10px;
-}
-.mobile-view {
-  display: none;
-}
-.full-view {
-  display: inline;
-}
 
 @media screen and (max-width: 786px) {
-  .mobile-view {
-    display: inline;
-  }
-  .full-view {
-    display: none;
-  }
   .nav-logoo {
+    margin-top: 15px;
     font-size: 1rem;
   }
   .stream-icon {
     width: 20px;
     top: 0;
   }
-
+  .nav-info {
+    padding: 5px;
+    font-size: 0.8rem;
+  }
 }
 
 /* SIDENAV */
 .sideNav {
   height: 100%;
-  margin-top: 89px;
   width: fit-content;
-  z-index: 0;
   background-color: rgba(0, 0, 0, 0.986);
 }
 .stacked-list {
@@ -103,8 +86,8 @@ hr {
   width: 95%;
   margin: 0 auto;
 }
-.ham:hover{
-  background-color: transparent;
+.ham:hover {
+  background-color: #000;
 }
 .view-mobile {
   width: 90px;
@@ -114,11 +97,11 @@ hr {
 }
 
 @media screen and (max-width: 768px) {
-  .sideNav{
+  .sideNav {
     margin-top: 78px;
-    padding-top: 30px !important;
+   
   }
-  .stacked-list{
+  .stacked-list {
     margin-top: 20px;
   }
   .stacked-list-item {

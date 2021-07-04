@@ -48,7 +48,7 @@ function SignUp() {
   return (
     <Base>
       {redirect && <Redirect to="/" />}
-      <div className="content-center">
+      <div className="user">
         <form className="form">
           <h1 className="mb-4">Sign Up</h1>
           <label htmlFor="name">Name</label>

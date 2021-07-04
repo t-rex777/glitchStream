@@ -59,8 +59,8 @@ function SignIn() {
   };
   return (
     <Base>
-      <div className="content-center">
-        {redirect && <Redirect to="/" />}
+      {redirect && <Redirect to="/" />}
+      <div className="user">
         <form className="form">
           <h1 className="mb-4">Sign In</h1>
           <label htmlFor="email">Email</label>

@@ -2,23 +2,15 @@ import React from "react";
 import { useVideo } from "../../video-context/VideoContext";
 import Base from "./../Base/Base";
 import { Link } from "react-router-dom";
+import "./history.css";
 function History() {
   const { state } = useVideo();
 
   return (
     <Base>
-      <div
-        className="content-center"
-        style={{ flexDirection: "column", alignItems: "flex-start" }}
-      >
-        <h1 style={{ marginTop: "100px", marginLeft: "3rem" }}>History</h1>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-evenly",
-          }}
-        >
+      <div className="history">
+        <h1>History</h1>
+        <div className="history-container">
           {state.history.map((vid, i) => {
             return (
               <div className="videoCard" key={i}>

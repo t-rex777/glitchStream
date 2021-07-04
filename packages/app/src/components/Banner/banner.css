@@ -1,5 +1,5 @@
 .banner {
-  background: url("./valorant2.jpg");
+  background: url("../../images/valorant2.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -58,11 +58,15 @@
   }
 }
 @media screen and (max-width:768px){
-  
+  .banner{
+    height: 300px;
+  }
   .banner_heading{
+    padding-top: 20px;
     font-size: 2rem;
   }
   .banner_desc {
+    margin-top: 2rem;
     font-size: 1rem;
   }
   .banner_button {

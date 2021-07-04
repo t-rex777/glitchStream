@@ -2,23 +2,15 @@ import React from "react";
 import { useVideo } from "../../video-context/VideoContext";
 import Base from "./../Base/Base";
 import { Link } from "react-router-dom";
+import "./likedVideos.css";
 function LikedVideos() {
   const { state } = useVideo();
 
   return (
     <Base>
-      <div
-        className="content-center"
-        style={{ flexDirection: "column", alignItems: "flex-start" }}
-      >
-        <h1 style={{ marginTop: "100px", marginLeft: "1rem" }}>Liked Videos</h1>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-evenly",
-          }}
-        >
+      <div className="likedVideos">
+        <h1>Liked Videos</h1>
+        <div className="likedVideo-container">
           {state.likedVideos.map((vid, i) => {
             return (
               <div className="videoCard" key={i}>
@@ -47,7 +39,6 @@ function LikedVideos() {
                     <p className="text-gray text-xs m-1">{vid.uploadedBy}</p>
                   </span>
                 </span>
-                {/* <button className="btn btn-danger text-xs" style={{padding:"2px 5px"}} >remove</button> */}
               </div>
             );
           })}
