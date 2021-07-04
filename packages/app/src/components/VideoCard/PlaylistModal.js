@@ -51,8 +51,12 @@ function PlaylistModal({ videoId }) {
   // modal
   const modalClick = (e) => {
     e.preventDefault();
-    console.log("modalclicked");
-    setModalStyle({ display: "block" });
+    if (state.user) {
+      console.log("modalclicked");
+      setModalStyle({ display: "block" });
+    }else{
+      setRedirect(true)
+    }
   };
   const cancelModal = (e) => {
     e.preventDefault();

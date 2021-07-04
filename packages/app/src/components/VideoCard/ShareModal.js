@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { InlineShareButtons } from "sharethis-reactjs";
 import { RiShareForwardFill } from "react-icons/ri";
+import { useVideo } from "../../video-context/VideoContext";
+import { Redirect } from "react-router";
 
 function ShareModal({ video, videoSrc }) {
+  const { state } = useVideo();
   const [shareModal, setShareModal] = useState({ display: "none" });
-
+  const [redirect, setRedirect] = useState(false);
   const openShareModal = (e) => {
     e.preventDefault();
-    setShareModal({ display: "block" });
+    state.user && setShareModal({ display: "block" });
+    !state.user && setRedirect(true);
   };
   const cancelShareModal = (e) => {
     e.preventDefault();
@@ -22,6 +26,7 @@ function ShareModal({ video, videoSrc }) {
   }, []);
   return (
     <>
+      {redirect && <Redirect to="/signin" />}
       <span className="interaction-item " onClick={openShareModal}>
         <RiShareForwardFill />
         <p>Share</p>

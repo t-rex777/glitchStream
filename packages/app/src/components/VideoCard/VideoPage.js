@@ -57,8 +57,6 @@ function VideoPage() {
         } catch (error) {
           console.log(error);
         }
-      } else {
-        setRedirect(true);
       }
     })();
   }, [videoId]);
@@ -172,6 +170,7 @@ function VideoPage() {
 
   return (
     <Base>
+      {redirect && <Redirect to="/signin" />}
       <div className="video-container">
         {video ? (
           <>
