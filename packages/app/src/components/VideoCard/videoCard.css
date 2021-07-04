@@ -47,6 +47,8 @@ hr {
 .video-interactions {
   display: flex;
   justify-content: flex-end;
+  margin-top: 1rem;
+  margin-right: 3rem;
 }
 .interaction-item {
   display: flex;
@@ -80,7 +82,7 @@ hr {
   flex-wrap: wrap;
 }
 .video-category > button {
-  margin: 2rem 1rem 0 1rem;
+  margin: 1rem;
   width: 5rem;
   height: 2rem;
   background-color: transparent;
@@ -97,7 +99,6 @@ hr {
 }
 
 .video-category > hr {
-  margin-top: 2rem;
   width: 100%;
   background: rgb(36, 35, 35);
 }

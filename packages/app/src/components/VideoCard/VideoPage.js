@@ -16,6 +16,7 @@ import {
 import Base from "./../Base/Base";
 import PlaylistModal from "./PlaylistModal";
 import ShareModal from "./ShareModal";
+import SuggestedVideos from "../SuggestedVideos/SuggestedVideos";
 
 function VideoPage() {
   const videoSrc = "https://www.youtube.com/embed/";
@@ -60,7 +61,7 @@ function VideoPage() {
         setRedirect(true);
       }
     })();
-  }, []);
+  }, [videoId]);
 
   // checking if the video is already suscribed or not
   useEffect(() => {
@@ -175,7 +176,13 @@ function VideoPage() {
       <div className="video-container">
         {video ? (
           <>
-            <div style={{ paddingBottom: "56.25%", position: "relative" }}>
+            <div
+              style={{
+                paddingBottom: "56.25%",
+                position: "relative",
+                width: "95%",
+              }}
+            >
               <iframe
                 className="embed-video"
                 src={videoSrc + video.videoId + "?autoplay=1"}
@@ -193,19 +200,11 @@ function VideoPage() {
               >
                 <AiFillLike />
               </span>
-              {/* <span
-                className="interaction-item"
-                style={iconColor.dislike}
-                onClick={dislikeVideo}
-              >
-                <AiFillDislike />
-              </span> */}
 
               <ShareModal videoSrc={videoSrc} video={video} />
 
               <PlaylistModal videoId={videoId} />
             </div>
-
             <h1 className="mt-2 mb-3 text-md">{video.name}</h1>
             <hr />
             <div className="uploader-info">
@@ -218,9 +217,13 @@ function VideoPage() {
               </span>
 
               <button className="suscribe-btn" onClick={suscribeVideo}>
-                {isSuscbribed ? "SUSCRIBED" : "SUSCRIBE"}{" "}
+                {isSuscbribed ? "SUSCRIBED" : "SUSCRIBE"}
               </button>
             </div>
+            <SuggestedVideos
+              category={video.category}
+              currentVideo={video._id}
+            />
           </>
         ) : (
           <h1>no videos found</h1>

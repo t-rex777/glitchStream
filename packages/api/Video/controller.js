@@ -154,13 +154,40 @@ exports.createVideo = async (req, res) => {
         description:
           " Frags by: Aerial , boltz , broky , kyojin , doto , elige , FL1T , gratisfaction , hobbit , k0nfig , Malta , motm , nafany , nickelback , qikert , rain , rez , ropz , s1mple , shakezulla , snax , sonic , stanislaw",
         uploadedBy: "Shroud",
-        category: "Virre CSGO",
+        category: "CSGO",
         videoId: "VJQ0f_12Zek",
         thumbnail:
           "https://www.gameophobic.com/wp-content/uploads/2018/11/MediaHandler.jpg",
         avatar:
           "https://yt3.ggpht.com/ytc/AKedOLRMeR1hY4RHLKW6LCCYCfIjRvLvzoXMg0ZX-l0cyw=s48-c-k-c0x00ffffff-no-rj",
       },
+
+
+      {
+        name: "NaVi vs Gambit - StarLadder CIS 2021 - HIGHLIGHTS l CSGO",
+        description:
+          "CSGO highlights 2021",
+        uploadedBy: "Matz",
+        category: "CSGO",
+        videoId: "NM9jPO1B-9s",
+        thumbnail:
+          "https://cdn.akamai.steamstatic.com/steam/apps/730/capsule_616x353.jpg?t=1612812939",
+        avatar:
+          "https://yt3.ggpht.com/ytc/AKedOLTc8hNdj_rUKWCyI3YlPjIpMUFV4gl2gj10EIhfqw=s48-c-k-c0x00ffffff-no-rj",
+      },
+      {
+        name: "The Top 10 Greatest Comebacks in CS:GO",
+        description:
+          "Between the pressure of competing on the big stage, and the tilt that losing round after round puts you in, any comeback is incredibly impressive.",
+        uploadedBy: "theScore esports",
+        category: "CSGO",
+        videoId: "Lh20uOrfRdw",
+        thumbnail:
+          "https://variety.com/wp-content/uploads/2018/07/csgo-image.png?w=681&h=383&crop=1",
+        avatar:
+          "https://yt3.ggpht.com/ytc/AKedOLSaMOvjLMq79kPHCat1I7bcdq9Mk1eOIgMPjr2a1Q=s48-c-k-c0x00ffffff-no-rj",
+      },
+
       {
         name: "Halo Infinite | Campaign Gameplay Premiere – 8 Minute Demo",
         description:
@@ -184,6 +211,30 @@ exports.createVideo = async (req, res) => {
           "https://i.gadgets360cdn.com/large/HaloInfinite_XGS_Inline1_1595521834185.jpeg",
         avatar:
           "https://yt3.ggpht.com/JWYn6LAwVbg1BK5SYrvJljq6vWGMzvNfmChHEW_Xw60f6OdJ23GsLld7MFH6ZkgOPk98lAeo=s48-c-k-c0x00ffffff-no-rj",
+      },
+      {
+        name: "Halo 4 Gameplay Walkthrough Part 1",
+        description:
+          "NEW Halo 4 Gameplay Walkthrough Part 1 includes the Prologue and Mission 1: Dawn of the Halo 4 Campaign for Xbox 360. This Halo 4 Gameplay Walkthrough will include a Review, all Missions and the Ending of the Single Player Campaign.",
+        uploadedBy: "TheRadBrad",
+        category: "HALO",
+        videoId: "iTR1VJoJZVQ",
+        thumbnail:
+          "https://i.pinimg.com/originals/82/cd/18/82cd18f969b29b4eade19f43bdba49ad.jpg",
+        avatar:
+          "https://yt3.ggpht.com/ytc/AKedOLROJ-u9YcoWU5LzbbiMcsNWDICtcGGXrT7ApSBPFw=s48-c-k-c0x00ffffff-no-rj",
+      },
+      {
+        name: "Halo Infinite Story Trailer | Xbox + Bethesda E3 2021",
+        description:
+          "Halo: Infinite brings Master Chief back in an open world game for the latest installment of Halo franchise. We see grappling hooks as Master Chief makes his way to discover Cortana is now a rogue AI who has been deleted. After Master Chief and Halo brought massive success Microsft",
+        uploadedBy: "GameSpot",
+        category: "HALO",
+        videoId: "JNhrhYRRUO8",
+        thumbnail:
+          "https://media.comicbook.com/2021/06/halo-infinite-1272082-1280x0.jpeg",
+        avatar:
+          "https://yt3.ggpht.com/ytc/AKedOLQJQs26Rq7shdNxGvJGzpEsvDG6WHzmumsFZqgpLuw=s48-c-k-c0x00ffffff-no-rj",
       },
     ]).then((data) =>
       res.json({

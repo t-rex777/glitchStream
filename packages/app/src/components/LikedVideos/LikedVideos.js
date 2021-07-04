@@ -11,7 +11,7 @@ function LikedVideos() {
         className="content-center"
         style={{ flexDirection: "column", alignItems: "flex-start" }}
       >
-        <h1 style={{ marginTop: "100px", marginLeft: "3rem" }}>Liked Videos</h1>
+        <h1 style={{ marginTop: "100px", marginLeft: "1rem" }}>Liked Videos</h1>
         <div
           style={{
             display: "flex",

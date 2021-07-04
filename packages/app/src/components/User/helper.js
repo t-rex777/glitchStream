@@ -34,7 +34,7 @@ export const signInUser = async (user) => {
 
 export const signUpUser = async (user) => {
   try {
-    const response = await GlitchApi.post("/signin", {
+    const response = await GlitchApi.post("/signup", {
       ...user,
     });
     return response.data;
