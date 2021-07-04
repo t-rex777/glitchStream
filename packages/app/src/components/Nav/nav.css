@@ -90,7 +90,6 @@
   color: #fff;
   display: flex;
   padding: 20px 30px;
-  /* align-items: center; */
   border-bottom: none;
   background-color: rgba(0, 0, 0, 0.986);
 }
@@ -115,6 +114,10 @@ hr {
 }
 
 @media screen and (max-width: 768px) {
+  .sideNav{
+    margin-top: 78px;
+    padding-top: 30px !important;
+  }
   .stacked-list{
     margin-top: 20px;
   }

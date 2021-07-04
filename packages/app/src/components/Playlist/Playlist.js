@@ -48,13 +48,16 @@ function Playlist() {
 
   return (
     <Base>
-      <div className="playlist content-center">
-        <h1 style={{ marginTop: "100px" }}>Playlist</h1>
+      <div
+        className="playlist content-center"
+        style={{ flexDirection: "column", alignItems: "flex-start" }}
+      >
+        <h1 style={{ marginTop: "100px", marginLeft: "1rem" }}>Playlist</h1>
         <div>
           {state.playlist.map((video) => {
             return (
               <div key={video._id} className="playlist-card mt-4">
-                <h2 className="text-center">{video.name}</h2>
+                <h2 className="ml-2">{video.name}</h2>
 
                 <div className="videoPlaylist">
                   {video.videos.map((vid, index) => {

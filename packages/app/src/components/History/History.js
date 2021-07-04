@@ -7,9 +7,18 @@ function History() {
 
   return (
     <Base>
-      <div className="content-center">
-        <h1 style={{ marginTop: "100px" }}>History</h1>
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent:"space-evenly" }}>
+      <div
+        className="content-center"
+        style={{ flexDirection: "column", alignItems: "flex-start" }}
+      >
+        <h1 style={{ marginTop: "100px", marginLeft: "3rem" }}>History</h1>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+          }}
+        >
           {state.history.map((vid, i) => {
             return (
               <div className="videoCard" key={i}>
@@ -34,7 +43,7 @@ function History() {
                     }}
                   />
                   <span>
-                    <h3>{vid.name}</h3>
+                    <h3 className="text-md">{vid.name}</h3>
                     <p className="text-gray text-xs m-1">{vid.uploadedBy}</p>
                   </span>
                 </span>

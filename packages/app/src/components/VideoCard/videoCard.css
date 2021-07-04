@@ -74,7 +74,42 @@ hr {
   border: solid 1px rgb(226, 6, 6);
 }
 
+.video-category {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.video-category > button {
+  margin: 2rem 1rem 0 1rem;
+  width: 5rem;
+  height: 2rem;
+  background-color: transparent;
+  color: var(--danger);
+  transition: 0.3s;
+  border: solid 1px var(--danger);
+}
+
+.video-category > button:hover {
+  background-color: var(--danger);
+  transform: scale(1.1);
+  transition: 0.3s;
+  color: #fff;
+}
+
+.video-category > hr {
+  margin-top: 2rem;
+  width: 100%;
+  background: rgb(36, 35, 35);
+}
+
 @media screen and (max-width: 786px) {
+  .videoCard {
+    width: 220px;
+  }
+  .videoThumbnail {
+    width: 200px;
+    height: auto;
+  }
   .interaction-item {
     flex-direction: column;
     font-size: 1rem;

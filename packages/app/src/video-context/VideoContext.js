@@ -24,6 +24,8 @@ export const VideoContext = ({ children }) => {
         return { ...state, history: action.payload };
       case "LIKED_VIDEOS":
         return { ...state, likedVideos: action.payload };
+      case "CATEGORY":
+        return { ...state, category: action.payload };
       case "TOAST":
         return { ...state, toast: action.payload };
       case "HAM":
@@ -40,6 +42,7 @@ export const VideoContext = ({ children }) => {
   };
   const [state, dispatch] = useReducer(reducerFunc, {
     user: "",
+    category: "",
     videos: [],
     video: {},
     playlist: [],

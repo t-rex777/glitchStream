@@ -4,12 +4,12 @@ import { MdPlaylistAddCheck } from "react-icons/md";
 import { RiVideoFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useVideo } from "../../video-context/VideoContext";
-function SideNav() {
+function SideNav({className}) {
   const { state} = useVideo();
   const {ham} = state;
   return (
     <div
-      className={` ${ham ? "view-mobile" : "big-view"}`}
+      className={`${className} ${ham ? "view-mobile" : "big-view"}`}
       style={ham ? { transition: "300ms" } : { transition: "300ms" }}
     >
       {/* <span

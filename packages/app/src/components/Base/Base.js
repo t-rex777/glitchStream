@@ -14,7 +14,7 @@ function Base({ children }) {
         <UpperNav />
       </div>
       <div className="sideNav">
-      <SideNav/>
+      <SideNav className="sideNav"/>
       </div>
       <div className="children"> {children}
       <Loading/></div>
