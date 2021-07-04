@@ -1,13 +1,14 @@
 import React from "react";
 import { useVideo } from "../../video-context/VideoContext";
 import Base from "./../Base/Base";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./history.css";
 function History() {
   const { state } = useVideo();
 
   return (
     <Base>
+      {!state.user && <Redirect to="/signin" />}
       <div className="history">
         <h1>History</h1>
         <div className="history-container">

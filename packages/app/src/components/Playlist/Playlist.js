@@ -2,7 +2,7 @@ import React from "react";
 import { useVideo } from "../../video-context/VideoContext";
 import Base from "./../Base/Base";
 import { AiFillDelete } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./playlist.css";
 import { getUserDetails, removeUserPlaylist } from "../User/helper";
 
@@ -48,6 +48,7 @@ function Playlist() {
 
   return (
     <Base>
+      {!state.user && <Redirect to="/signin" />}
       <div className="playlist content-center">
         <h1>Playlist</h1>
         <div>
