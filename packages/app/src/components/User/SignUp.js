@@ -38,7 +38,7 @@ function SignUp() {
           type: "TOAST",
           payload: `Welcome aboard!`,
         });
-        dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
+        dispatch({ type: "TOAST_STYLE", payload: { display: "none" } });
         setRedirect(true);
       }
     } catch (error) {
