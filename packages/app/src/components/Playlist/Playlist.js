@@ -2,7 +2,7 @@ import React from "react";
 import { useVideo } from "../../video-context/VideoContext";
 import Base from "./../Base/Base";
 import { AiFillDelete } from "react-icons/ai";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./playlist.css";
 import { getUserDetails, removeUserPlaylist } from "../User/helper";
 
@@ -34,7 +34,7 @@ function Playlist() {
         dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
         const userDetails = await getUserDetails();
         dispatch({ type: "SIGNIN", payload: userDetails });
-        dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
+        dispatch({ type: "SET_PLAYLIST", payload: userDetails.playlists });
         dispatch({
           type: "TOAST",
           payload: `Video removed from ${selectedPlaylist.name}`,
@@ -48,7 +48,6 @@ function Playlist() {
 
   return (
     <Base>
-      {!state.user && <Redirect to="/signin" />}
       <div className="playlist content-center">
         <h1>Playlist</h1>
         <div>

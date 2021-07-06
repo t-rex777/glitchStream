@@ -3,17 +3,17 @@ import Base from "./../Base/Base";
 import "./user.css";
 import { signUpUser } from "./helper";
 import { useVideo } from "../../video-context/VideoContext";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function SignUp() {
   const { dispatch } = useVideo();
+  const history = useHistory()
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     re_password: "",
   });
-  const [redirect, setRedirect] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prevValue) => {
@@ -39,7 +39,7 @@ function SignUp() {
           payload: `Welcome aboard!`,
         });
         dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
-        setRedirect(true);
+       history.push("/signin")
       }
     } catch (error) {
       console.log(error);
@@ -47,7 +47,6 @@ function SignUp() {
   };
   return (
     <Base>
-      {redirect && <Redirect to="/" />}
       <div className="user">
         <form className="form">
           <h1 className="mb-4">Sign Up</h1>

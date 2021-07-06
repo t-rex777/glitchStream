@@ -45,10 +45,7 @@ export const signUpUser = async (user) => {
 
 export const setLikeVideo = async (videoId) => {
   try {
-    console.log(videoId);
-    console.log(GlitchApi.defaults.headers);
     const response = await GlitchApi.post(`/user/likedvideo/${videoId}`);
-    console.log(response.data, "hehe");
     return response.data;
   } catch (error) {
     console.log(error);

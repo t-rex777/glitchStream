@@ -1,14 +1,13 @@
 import React from "react";
 import { useVideo } from "../../video-context/VideoContext";
 import Base from "./../Base/Base";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./likedVideos.css";
 function LikedVideos() {
   const { state } = useVideo();
 
   return (
     <Base>
-      {!state.user && <Redirect to="/signin" />}
       <div className="likedVideos">
         <h1>Liked Videos</h1>
         <div className="likedVideo-container">

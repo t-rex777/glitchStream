@@ -3,16 +3,16 @@ import Base from "./../Base/Base";
 import "./user.css";
 import { signInUser } from "./helper";
 import { useVideo } from "../../video-context/VideoContext";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { setGlitchHeader } from "../../utils";
 
 function SignIn() {
   const { dispatch } = useVideo();
+  const history = useHistory();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const [redirect, setRedirect] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prevValue) => {
@@ -42,24 +42,22 @@ function SignIn() {
       setGlitchHeader(accessToken);
       dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
       dispatch({ type: "SIGNIN", payload: userDetails });
-      dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
-      dispatch({ type: "HISTORY", payload: userDetails.history });
-      dispatch({ type: "LIKED_VIDEOS", payload: userDetails.likedVideos });
+      dispatch({ type: "SET_PLAYLIST", payload: userDetails.playlists });
+      dispatch({ type: "SET_HISTORY", payload: userDetails.history });
+      dispatch({ type: "SET_LIKED_VIDEOS", payload: userDetails.likedVideos });
 
       dispatch({
         type: "TOAST",
         payload: `Logged In`,
       });
       dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
-
-      setRedirect(true);
+      history.push("/");
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <Base>
-      {redirect && <Redirect to="/" />}
       <div className="user">
         <form className="form">
           <h1 className="mb-4">Sign In</h1>

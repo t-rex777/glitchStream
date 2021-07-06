@@ -3,8 +3,8 @@ import { useVideo } from "../../video-context/VideoContext";
 
 function VideoCategories() {
   const { dispatch } = useVideo();
-  const setCategory = (e) => {    
-    dispatch({ type: "CATEGORY", payload: e.target.value });
+  const setCategory = (e) => {
+    dispatch({ type: "SET_CATEGORY", payload: e.target.value });
   };
   return (
     <div className="video-category">

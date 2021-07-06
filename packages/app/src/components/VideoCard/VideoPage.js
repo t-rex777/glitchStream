@@ -34,7 +34,7 @@ function VideoPage() {
     //fetching the video details
     (async () => {
       const video = await getVideoById(videoId);
-      dispatch({ type: "VIDEO", payload: video });
+      dispatch({ type: "SET_VIDEO", payload: video });
     })();
     //checking if the video is already liked or not
     if (user) {
@@ -53,7 +53,7 @@ function VideoPage() {
           console.log("history");
           const userDetails = await getUserDetails();
           await dispatch({ type: "SIGNIN", payload: userDetails });
-          await dispatch({ type: "HISTORY", payload: userDetails.history });
+          await dispatch({ type: "SET_HISTORY", payload: userDetails.history });
         } catch (error) {
           console.log(error);
         }
@@ -90,7 +90,7 @@ function VideoPage() {
               const userDetails = await getUserDetails();
               dispatch({ type: "SIGNIN", payload: userDetails });
               dispatch({
-                type: "LIKED_VIDEOS",
+                type: "SET_LIKED_VIDEOS",
                 payload: userDetails.likedVideos,
               });
             }
@@ -109,7 +109,7 @@ function VideoPage() {
           setIconColor({ ...iconColor, like: { color: "red" } });
           const userDetails = await getUserDetails();
           dispatch({ type: "SIGNIN", payload: userDetails });
-          dispatch({ type: "LIKED_VIDEOS", payload: userDetails.likedVideos });
+          dispatch({ type: "SET_LIKED_VIDEOS", payload: userDetails.likedVideos });
         }
       } catch (error) {
         console.log(error);

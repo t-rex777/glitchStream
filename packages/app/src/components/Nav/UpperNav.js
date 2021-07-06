@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import StreamIcon from "./stream.png";
 import { useVideo } from "../../video-context/VideoContext";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -7,6 +7,7 @@ import "./nav.css";
 
 function UpperNav() {
   const { state, dispatch } = useVideo();
+  const history = useHistory();
   return (
     <nav className="nav dark text-white">
       <ul className="nav-items">
@@ -37,6 +38,7 @@ function UpperNav() {
               <span
                 onClick={() => {
                   dispatch({ type: "SIGNOUT" });
+                  history.push("/signin");
                 }}
               >
                 Sign Out

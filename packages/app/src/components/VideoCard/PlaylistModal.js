@@ -37,15 +37,20 @@ function PlaylistModal({ videoId }) {
         setNewPlaylist([]);
         const userDetails = await getUserDetails();
         await dispatch({ type: "SIGNIN", payload: userDetails });
-        await dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
+        await dispatch({
+          type: "SET_PLAYLIST",
+          payload: userDetails.playlists,
+        });
         await dispatch({
           type: "TOAST",
           payload: `Playlist added`,
         });
-        await dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
+        await dispatch({ type: "TOAST_STYLE", payload: { display: "none" } });
       }
     } catch (error) {
       console.log(error);
+      dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
+
     }
   };
   // modal
@@ -54,8 +59,8 @@ function PlaylistModal({ videoId }) {
     if (state.user) {
       console.log("modalclicked");
       setModalStyle({ display: "block" });
-    }else{
-      setRedirect(true)
+    } else {
+      setRedirect(true);
     }
   };
   const cancelModal = (e) => {
@@ -86,7 +91,10 @@ function PlaylistModal({ videoId }) {
         setNewPlaylist([]);
         const userDetails = await getUserDetails(state);
         await dispatch({ type: "SIGNIN", payload: userDetails });
-        await dispatch({ type: "PLAYLIST", payload: userDetails.playlists });
+        await dispatch({
+          type: "SET_PLAYLIST",
+          payload: userDetails.playlists,
+        });
         await dispatch({
           type: "TOAST",
           payload: `Playlist added`,
