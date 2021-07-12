@@ -199,7 +199,7 @@ function VideoPage() {
                 <AiFillLike />
               </span>
 
-              <ShareModal videoSrc={videoSrc} video={video} />
+              {/* <ShareModal videoSrc={videoSrc} video={video} /> */}
 
               <PlaylistModal videoId={videoId} />
             </div>
