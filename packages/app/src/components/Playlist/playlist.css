@@ -11,7 +11,7 @@
 .videoPlaylist{
     display: flex;
     flex-wrap: wrap; 
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 .deletePlaylist{
     margin-left: 3rem;

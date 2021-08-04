@@ -30,6 +30,7 @@ function VideoPage() {
     dislike: { color: "#fff" },
   });
 
+  window.scrollTo(0, 0);
   useEffect(() => {
     //fetching the video details
     (async () => {
@@ -109,7 +110,10 @@ function VideoPage() {
           setIconColor({ ...iconColor, like: { color: "red" } });
           const userDetails = await getUserDetails();
           dispatch({ type: "SIGNIN", payload: userDetails });
-          dispatch({ type: "SET_LIKED_VIDEOS", payload: userDetails.likedVideos });
+          dispatch({
+            type: "SET_LIKED_VIDEOS",
+            payload: userDetails.likedVideos,
+          });
         }
       } catch (error) {
         console.log(error);
@@ -176,7 +180,7 @@ function VideoPage() {
           <>
             <div
               style={{
-                paddingBottom: "56.25%",
+                paddingBottom: "42%",
                 position: "relative",
                 width: "95%",
               }}

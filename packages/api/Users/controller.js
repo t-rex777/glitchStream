@@ -33,7 +33,7 @@ exports.getUser = async (req, res) => {
       .populate("history")
       .populate("playlists.videos")
       .populate("likedVideos");
-   return res.send(user);
+    return res.send(user);
   } catch (error) {
     res.status(400).json({
       message: error.message,
@@ -168,7 +168,7 @@ exports.updateUserPlaylist = async (req, res) => {
     const newPlaylist = req.body;
     let user = await User.findById(req.userId);
     let isSameName = false;
-    user.playlists.forEach((playlist) => {
+    user.playlists.forEach(async (playlist) => {
       if (playlist.name === newPlaylist.name) {
         isSameName = true;
         if (playlist.videos.includes(newPlaylist.videos)) {
@@ -176,11 +176,10 @@ exports.updateUserPlaylist = async (req, res) => {
           return user;
         } else {
           console.log("same name, different id");
-
-          user.playlists.forEach((x) => {
-            x.videos = [...x.videos, newPlaylist.videos];
-          });
-          return user.save((err, updatedUser) => {
+          user.playlists
+            .find((playlist) => playlist.name === newPlaylist.name)
+            .videos.push(newPlaylist.videos);
+          user.save((err, updatedUser) => {
             if (err) {
               return res.status(400).json({
                 message: "playlist didn't update",

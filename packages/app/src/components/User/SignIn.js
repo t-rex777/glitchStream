@@ -10,8 +10,8 @@ function SignIn() {
   const { dispatch } = useVideo();
   const history = useHistory();
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "admin@gmail.com",
+    password: "admin@123456789",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
