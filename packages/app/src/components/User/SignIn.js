@@ -10,8 +10,8 @@ function SignIn() {
   const { dispatch } = useVideo();
   const history = useHistory();
   const [user, setUser] = useState({
-    email: "admin@gmail.com",
-    password: "admin@123456789",
+    email: "",
+    password: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +26,15 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOADING_STYLE", payload: { display: "block" } });
-    const data = await signInUser(user);
+    let data;
+    if (e.target.name === "normal") {
+      data = await signInUser(user);
+    } else {
+      data = await signInUser({
+        email: "admin@gmail.com",
+        password: "admin@123456789",
+      });
+    }
     try {
       if (data === undefined) {
         dispatch({ type: "LOADING_STYLE", payload: { display: "none" } });
@@ -81,10 +89,20 @@ function SignIn() {
           />
           <button
             type="submit"
+            name="normal"
             onClick={handleSubmit}
             className="btn btn-success text-s"
           >
             Sign In
+          </button>
+
+          <button
+            type="submit"
+            name="guest"
+            onClick={handleSubmit}
+            className="btn btn-success text-s mt-1"
+          >
+            Sign In as Guest
           </button>
         </form>
         <p className="mt-2">
