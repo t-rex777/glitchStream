@@ -179,11 +179,12 @@ function VideoPage() {
         {video ? (
           <>
             <div
-              style={{
-                paddingBottom: "42%",
-                position: "relative",
-                width: "95%",
-              }}
+            className="video-player"
+              // style={{
+              //   paddingBottom: "42%",
+              //   position: "relative",
+              //   width: "95%",
+              // }}
             >
               <iframe
                 className="embed-video"

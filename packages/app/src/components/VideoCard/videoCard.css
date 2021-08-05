@@ -93,6 +93,11 @@ hr {
   transition: 0.3s;
   border: solid 1px var(--danger);
 }
+.video-player {
+  padding-bottom: 42%;
+  position: relative;
+  width: 95%;
+}
 
 .video-category > button:hover {
   background-color: var(--danger);
@@ -113,6 +118,9 @@ hr {
   .videoThumbnail {
     width: 200px;
     height: auto;
+  }
+  .video-player{
+    padding-bottom: 52%;
   }
   .interaction-item {
     flex-direction: column;
@@ -137,7 +145,7 @@ hr {
   /* margin-right: 10%; */
   background-color: rgb(27, 27, 27);
 }
-.playlists{
+.playlists {
   display: flex;
 }
 .playlist-submit {
@@ -155,4 +163,16 @@ hr {
   background-color: rgb(61, 59, 59);
   border: solid 1px rgb(61, 59, 59);
   color: rgb(39, 38, 38);
+}
+
+@media screen and (max-width:560px){
+  .videoCard{
+    width: 100%;
+  }
+  
+.videoThumbnail {
+  width: 100%;
+  height: auto;
+  transition: 300ms;
+}
 }
