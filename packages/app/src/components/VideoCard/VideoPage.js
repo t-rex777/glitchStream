@@ -30,8 +30,9 @@ function VideoPage() {
     dislike: { color: "#fff" },
   });
 
-  window.scrollTo(0, 0);
+ 
   useEffect(() => {
+     window.scrollTo(0, 0);
     //fetching the video details
     (async () => {
       const video = await getVideoById(videoId);
