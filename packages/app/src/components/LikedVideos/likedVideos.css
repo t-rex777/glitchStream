@@ -1,0 +1,12 @@
+.likedVideos{
+    display: flex;
+    flex-direction: column;
+}
+.likedVideos>h1{
+    margin-left: 2rem;
+}
+
+.likedVideo-container{
+    display: flex !important;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,24 @@
+.playlist{
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.playlist>h1{
+    margin-left: 1.2rem;
+}
+.videoPlaylist{
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: flex-start;
+}
+.deletePlaylist{
+    margin-left: 3rem;
+    color:#FB3640;
+    font-size: 1.5rem;
+}
+
+.deletePlaylist:hover{
+    color: #fff;
+}

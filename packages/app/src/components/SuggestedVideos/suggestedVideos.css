@@ -1,0 +1,13 @@
+.suggestedVideos{
+    background-color: #121213;
+    width: fit-content;
+    margin-top: 57px;
+    width: 100%;
+}
+
+.suggestedVideos-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+}

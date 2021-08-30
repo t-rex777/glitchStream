@@ -1,0 +1,12 @@
+.history{
+    display: flex;
+    flex-direction: column;
+}
+.history>h1{
+    margin-left: 2rem;
+}
+
+.history-container{
+    display: flex !important;
+    flex-wrap: wrap;
+}
