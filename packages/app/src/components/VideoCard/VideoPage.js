@@ -15,7 +15,6 @@ import {
 
 import Base from "./../Base/Base";
 import PlaylistModal from "./PlaylistModal";
-import ShareModal from "./ShareModal";
 import SuggestedVideos from "../SuggestedVideos/SuggestedVideos";
 
 function VideoPage() {
@@ -61,6 +60,7 @@ function VideoPage() {
         }
       }
     })();
+    //eslint-disable-next-line
   }, [videoId]);
 
   // checking if the video is already suscribed or not
@@ -68,6 +68,7 @@ function VideoPage() {
     user && user.suscriptions.includes(video.uploadedBy)
       ? setIsSuscbribed(true)
       : setIsSuscbribed(false);
+      //eslint-disable-next-line
   }, [video]);
 
   // liking and disliking the video

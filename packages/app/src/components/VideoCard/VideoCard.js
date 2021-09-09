@@ -46,7 +46,7 @@ function VideoCard() {
                   }}
                 />
                 <span>
-                  <h3>{vid.name}</h3>
+                  <h3 className="video-title">{vid.name}</h3>
                   <p className="text-gray text-xs m-1">{vid.uploadedBy}</p>
                 </span>
               </span>

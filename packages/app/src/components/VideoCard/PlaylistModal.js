@@ -8,7 +8,6 @@ import {
   setPlaylist,
 } from "./../User/helper";
 import { Redirect } from "react-router-dom";
-import { RiOpenSourceLine } from "react-icons/ri";
 
 function PlaylistModal({ videoId }) {
   const { state, dispatch } = useVideo();

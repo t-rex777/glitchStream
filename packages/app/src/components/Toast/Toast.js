@@ -9,6 +9,7 @@ function Toast() {
         dispatch({ type: "TOAST_STYLE", payload: { display: "none" } });
       }, 3000);
     }
+    // eslint-disable-next-line
   }, [state.toast]);
   return (
     <div className="toast success" style={state.toastStyle}>

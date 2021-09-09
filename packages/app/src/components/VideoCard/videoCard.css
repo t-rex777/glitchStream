@@ -1,19 +1,25 @@
 .videoCard {
   padding: 1rem;
-  margin: 1rem;
-  width: 300px;
+  margin: 0.5rem;
+  width: 350px;
 }
 
 .videoRow {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-evenly; */
+  display: grid;
+  width: 100%;
+  justify-items: center;
+  grid-gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 }
 
 .videoThumbnail {
-  width: 280px;
-  height: 160px;
+  width: 100%;
+  height: 180px;
   transition: 300ms;
+  object-fit: cover;
 }
 
 .videoAvatar {
@@ -113,13 +119,16 @@ hr {
 
 @media screen and (max-width: 786px) {
   .videoCard {
-    width: 220px;
+    width: 300px;
+  }
+  .video-title {
+    font-size: 0.7rem;
   }
   .videoThumbnail {
-    width: 200px;
-    height: auto;
+    width: 100%;
+    height: 160px;
   }
-  .video-player{
+  .video-player {
     padding-bottom: 52%;
   }
   .interaction-item {
@@ -165,14 +174,14 @@ hr {
   color: rgb(39, 38, 38);
 }
 
-@media screen and (max-width:560px){
-  .videoCard{
-    width: 100%;
+@media screen and (max-width: 560px) {
+  .videoCard {
+    width: 300px;
   }
-  
-.videoThumbnail {
-  width: 100%;
-  height: auto;
-  transition: 300ms;
-}
+
+  .videoThumbnail {
+    width: 100%;
+    height: 150px;
+    transition: 300ms;
+  }
 }

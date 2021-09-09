@@ -7,7 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 
 function SignUp() {
   const { dispatch } = useVideo();
-  const history = useHistory()
+  const history = useHistory();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -26,6 +26,14 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user.email || !user.name || !user.password || !user.re_password) {
+      dispatch({
+        type: "TOAST",
+        payload: `Please fill all the details.`,
+      });
+      dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
+      return;
+    }
     if (user.password !== user.re_password) {
       return alert("both passwords should be exactly same!");
     }
@@ -38,8 +46,8 @@ function SignUp() {
           type: "TOAST",
           payload: `Welcome aboard!`,
         });
-        dispatch({ type: "TOAST_STYLE", payload: { display: "block" } })
-       history.push("/signin")
+        dispatch({ type: "TOAST_STYLE", payload: { display: "block" } });
+        history.push("/signin");
       }
     } catch (error) {
       console.log(error);
